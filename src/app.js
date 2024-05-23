@@ -69,6 +69,7 @@ const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
 app.use(
     cors({
         origin: (origin, callback) => {
+            console.log(origin)
             if (allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
