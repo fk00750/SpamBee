@@ -5,9 +5,18 @@ const { SpamModel } = require("./spam.model.js");
 const { UserModel } = require("./user.model.js")
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
+const sequelize = new Sequelize({
   host: config.HOST,
+  database: config.DB,
+  username: config.USER,
+  password: config.PASSWORD,
   dialect: config.dialect,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
   logging: false,
   pool: {
     max: config.pool.max,
