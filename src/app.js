@@ -65,19 +65,19 @@ app.use(helmet({
 /**
  * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
  */
-const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            console.log(origin)
-            if (allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-    })
-);
+// const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
+// app.use(
+//     cors({
+//         origin: (origin, callback) => {
+//             console.log(origin)
+//             if (allowedOrigins.includes(origin)) {
+//                 callback(null, true);
+//             } else {
+//                 callback(new Error('Not allowed by CORS'));
+//             }
+//         },
+//     })
+// );
 
 /**
  * Log HTTP requests to the console.
