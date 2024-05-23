@@ -21,7 +21,7 @@ class ContactManger {
      * @param {string} userId - user Id of the user.
      * @throws {Error} if something went wrong during the search.
      * @returns {Object|boolean|undefined} If phone not provided returns undefined, if contact not found return false, if contact found return contact.
-     */
+    */
     async findContactByNumber(phone, userId) {
         try {
             if (!phone) return undefined
@@ -47,12 +47,15 @@ class ContactManger {
      * @param {string} contactId - contact id.
      * @throws {Error} if something went wrong during the search.
      * @returns {Object|boolean|undefined} If user id or contact id not provided returns undefined, if contact not found return false, if contact found return contact.
-     */
+    */
     async findContactById(userId, contactId) {
         try {
             if (!userId || !contactId) return undefined
 
-            const contact = await db.Contact.findOne({ where: { userId, contactId } })
+            const contact = await db.Contact.findOne({
+                where: { userId, contactId },
+                attributes: ['name', 'phone', 'email','contactId']
+            })
 
             if (!contact) return false
 
@@ -77,12 +80,7 @@ class ContactManger {
         const result = await db.Contact.findAll(
             {
                 where: { userId: userId },
-                include: [
-                    {
-                        model: db.User,
-                        attributes: ['name', 'phone']
-                    }
-                ]
+                attributes: ['name', 'phone', 'contactId']
             }
         )
 
@@ -106,6 +104,13 @@ class ContactManger {
         try {
             if (!name || !phone || !userId || !userId_ref) return undefined
 
+            let email
+
+            // check if contact exist in user database
+            const user = await authManager.findUserByPhoneNumber(phone)
+
+            if (user) email = user.email
+
             const contactId = await authManager.createUniqueId('contact')
 
             if (!contactId) return null
@@ -115,7 +120,8 @@ class ContactManger {
                 userId: userId,
                 contactId: contactId,
                 name: name,
-                phone: phone
+                phone: phone,
+                email: email
             })
 
             if (!contact) return null
@@ -151,7 +157,7 @@ class ContactManger {
             return isContactDeleted
         } catch (error) {
             console.log(`utils > contact.manager.js > ContactManger > deleteContact: ${error.message}`)
-            return error
+            throw error
         }
     }
 

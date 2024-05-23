@@ -20,7 +20,7 @@ const IssueAccessAndRefreshToken = require('../../utils/jwt/issue.jwt.token');
 exports.Register = async (req, res, next) => {
     try {
         // get name, phone and password from req.body
-        const { name, phone, password } = req.body
+        const { name, phone, password, email } = req.body
 
         if (!name || !phone || !password) return next(new CustomErrorHandler(400, "Invalid request"))
 
@@ -31,7 +31,7 @@ exports.Register = async (req, res, next) => {
         if (user) return next(CustomErrorHandler.alreadyExist("user already exist"))
 
         // create new user with name, phone and password
-        const isUserCreated = await authManger.createUser(name, phone, password)
+        const isUserCreated = await authManger.createUser(name, phone, password, email)
 
         // If user creation fails, response with an error that something went wrong 
         if (!isUserCreated) return next(CustomErrorHandler.somethingWentWrong())

@@ -1,6 +1,6 @@
 /**
  * @file passport.config.js
- * @description Configuration file for passport.js and jwt authentication.
+ * @fileoverview Configuration file for passport.js and jwt authentication.
  * Handle access and refresh token strategies
  */
 

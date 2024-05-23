@@ -30,6 +30,10 @@ function ContactModel(sequelize, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
     })
 
     return contact

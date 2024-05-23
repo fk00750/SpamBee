@@ -132,6 +132,7 @@ exports.DeleteContact = async (req, res, next) => {
             message: 'success'
         })
     } catch (error) {
+        console.log(error)
         // log the error and pass it to error handler middleware
         console.log(`Error: src > controllers > Contact > index.js > DeleteContact - ${error.message}`)
         next(error)

@@ -46,10 +46,11 @@ class AuthManager {
      * @param {string} name
      * @param {string} phone
      * @param {string} password
+     * @param {string} email
      * @throws {Error} trows error in case of any failure
      * @returns {undefined|boolean|Object} - undefined if name,phone and password not provided, and if user created, returns user object 
      */
-    async createUser(name, phone, password) {
+    async createUser(name, phone, password, email) {
         try {
             if (!name || !phone || !password) return undefined
 
@@ -68,7 +69,8 @@ class AuthManager {
                 userId: userId,
                 name: name,
                 phone: phone,
-                password: hashedPassword
+                password: hashedPassword,
+                email: email,
             })
 
             if (!user) throw error

@@ -6,9 +6,6 @@ env.config()
 
 const PORT = process.env.PORT || 6000
 
-/**
- * Hello
- */
 app.listen(PORT, () => {
     console.log(`server is running on PORT: ${PORT}`)
     db.sequelize.sync({ force: false }).then(() => {
