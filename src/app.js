@@ -65,7 +65,7 @@ app.use(helmet({
 /**
  * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
  */
-const allowedOrigins = ["localhost:4001"];
+const allowedOrigins = ["https://authenticate-kx0v.onrender.com/"];
 app.use(
     cors({
         origin: (origin, callback) => {
