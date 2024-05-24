@@ -40,7 +40,6 @@ const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocumentation = YAML.load('./swagger.yaml')
 const path = require('path')
-const xss = require('xss')
 const rateLimit = require("express-rate-limit");
 const cookieParser = require('cookie-parser')
 
@@ -85,9 +84,6 @@ app.use(
     })
 );
 
-
-// xss
-app.use(xss)
 // cookie parser
 app.use(cookieParser())
 
