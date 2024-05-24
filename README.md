@@ -1,26 +1,33 @@
-# Authenticate Backend Developer Position
+# SpamBee REST API
 
-This project aims to create a REST API for a mobile app similar to popular apps that identify spam numbers or allow finding a person's name by searching for their phone number.
+<!-- <img src="./public/README_img.png"> -->
 
-## Tech Stack
+Welcome to **SpamBee API**, a robust REST API designed to empower mobile applications with spam detection and phone number lookup functionalities. Similar to popular apps in the market, SpamBee API allows users to determine if a phone number is associated with spam and to search for a person's name by entering their phone number.
+
+## 👋 Introduction
+
+SpamBee API is built to offer seamless integration with mobile applications seeking to enhance user privacy and security. Whether you're developing a messaging app, a caller ID service, or a contact management tool, SpamBee API provides the essential functionalities to identify and manage phone numbers effectively.
+
+## 🔑 Key Features
+
+- **User Authentication:** Secure registration and login functionality to authenticate users and protect their data.
+- **Profile Management:** Options to view and update user profiles, ensuring accurate information.
+- **Contact Management:** Capability to manage contacts, including searching for contacts by phone number.
+- **Spam Detection:** Advanced algorithms to identify spam phone numbers and protect users from unwanted communications.
+
+## 🧰 Tech Stack
 
 - Node.js
 - Express.js
 - PostgreSQL
 - Sequelize ORM
 
-## Features
+## ✨ Features
 
 ### User Authentication and Profile Management
 
 - **Register Route:** Users can register with a name, phone number, and password. An optional email address can also be provided.
 - **Login Route:** Registered users can log in with their phone number and password.
-- **Password Hashing & Verification:** Passwords are securely hashed and verified during login.
-- **JWT Token Issuance:** Upon successful login, JWT tokens (access and refresh tokens) are issued for authentication.
-- **Access Control:** Using passport-jwt, access to protected routes is provided only with a valid JWT token.
-- **Error Handling:** Proper error management system is implemented for graceful handling of errors.
-- **Database Integration:** PostgreSQL database is used with Sequelize ORM for efficient data storage and retrieval.
-- **Data Validation:** Validators are implemented to ensure data integrity and security.
 - **Profile Management:** Users can update their email, phone number, name, and password.
 - **View User Profile:** Users can view their profile information after logging in.
 
@@ -35,14 +42,22 @@ This project aims to create a REST API for a mobile app similar to popular apps 
 ### Spam Management
 
 - **Mark Number as Spam:** Users can mark a phone number as spam to help other users identify spam callers.
-- **Retrieve Spam Numbers:** Users can retrieve a list of all marked spam numbers.
 
 ### Search Functionality
 
 - **Search by Name:** Users can search for people by name in the global database.
 - **Search by Phone Number:** Users can search for people by phone number in the global database.
 
-### Security Enhancements
+### Others
+
+- **Password Hashing & Verification:** Passwords are securely hashed and verified during login.
+- **JWT Token Issuance:** Upon successful login, JWT tokens (access and refresh tokens) are issued for authentication.
+- **Access Control:** Using passport-jwt, access to protected routes is provided only with a valid JWT token.
+- **Error Handling:** Proper error management system is implemented for graceful handling of errors.
+- **Database Integration:** PostgreSQL database is used with Sequelize ORM for efficient data storage and retrieval.
+- **Data Validation:** Validators are implemented to ensure data integrity and security.
+
+### 🔐 Security Enhancements
 
 - **Helmet Middleware:** Various security headers such as Content Security Policy, Referrer Policy, HSTS, Frameguard, and X-Content-Type-Options are implemented using the Helmet middleware.
 - **CORS Policy:** CORS (Cross-Origin Resource Sharing) policy is implemented to restrict unauthorized access to resources.
@@ -60,18 +75,18 @@ This project aims to create a REST API for a mobile app similar to popular apps 
 - **Security Best Practices:** Additional security best practices such as input validation, rate limiting, etc., are implemented to enhance security.
 - **Thorough Testing:** Comprehensive testing is conducted to ensure the functionality and performance of the APIs under various scenarios.
 
-## Installation
+## 📌 Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/authenticate-backend.git
+   git clone https://github.com/fk00750/authenticate.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd authenticate-backend
+   cd authenticate
    ```
 
 3. Install dependencies:
@@ -80,7 +95,7 @@ This project aims to create a REST API for a mobile app similar to popular apps 
    npm install
    ```
 
-4. Set up PostgreSQL database and update configuration in `config/config.json`.
+4. Set up PostgreSQL database and update configuration in `config/config.database.js`.
 
 5. Run the migration to create database tables:
 
@@ -94,26 +109,16 @@ This project aims to create a REST API for a mobile app similar to popular apps 
    npm start
    ```
 
-7. The server will be running at `http://localhost:3000`.
+7. The server will be running at `http://localhost:4001`.
 
-## API Documentation
+## 📋 API Documentation
 
-Detailed API documentation including endpoints, request/response formats, and usage examples can be found [here](/docs/api.md).
+Detailed API documentation including endpoints, request/response formats, and usage examples can be found [here](https://authenticate-kx0v.onrender.com/api-docs).
 
 ## Testing
 
 To run tests:
 
 ```bash
-npm test
+npm run test
 ```
-
-## Contributors
-
-- [Your Name](https://github.com/yourusername)
-- [Contributor 1](https://github.com/contributor1)
-- [Contributor 2](https://github.com/contributor2)
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).

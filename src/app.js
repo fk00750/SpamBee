@@ -38,53 +38,21 @@ const { passportConfig } = require("./config/passport.config");
 const session = require('express-session');
 const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
-const swaggerDocumentation = YAML.load('../swagger.yaml')
+const swaggerDocumentation = YAML.load('./swagger.yaml')
 const path = require('path')
 
 const app = express();
 
-/**
- * Apply various security-related HTTP headers to the responses.
- * @see {@link https://www.npmjs.com/package/helmet} for more information about helmet middleware.
- */
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-        },
-    },
-    referrerPolicy: {
-        policy: "no-referrer"
-    },
-    hsts: {
-        maxAge: 21945600, // 254 days
-        includeSubDomains: false
-    },
-    frameguard: {
-        action: "deny",
-    },
-    noSniff: true,
-}));
+// helmet middleware
+app.use(helmet());
 
-/**
- * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
- */
-const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
-app.use(cors(corsOptions))
+// cors middleware
+app.use(cors());
 
 /**
  * Log HTTP requests to the console.
  */
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 /**
  * Parse incoming request bodies in JSON format.
@@ -113,14 +81,15 @@ app.use(
     })
 );
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 
-app.use('/api-usage', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 /**
  * Handle root endpoint.
  */
+app.use(express.static(path.join(__dirname, '..', 'docs','jsdoc')));
 app.get("/", (req, res) => {
-    const filePath = path.join(__dirname, '..', 'docs', 'jsdoc', 'index.html')
-    return res.sendFile(filePath)
+    const filePath = path.join(__dirname, '..', 'docs', 'jsdoc', 'index.html');
+    return res.sendFile(filePath);
 });
 
 /**
