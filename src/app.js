@@ -44,6 +44,21 @@ const path = require('path')
 const app = express();
 
 /**
+ * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
+ */
+const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+app.use(cors(corsOptions))
+
+/**
  * Apply various security-related HTTP headers to the responses.
  * @see {@link https://www.npmjs.com/package/helmet} for more information about helmet middleware.
  */
@@ -66,21 +81,6 @@ app.use(
         noSniff: true,
     })
 );
-
-/**
- * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
- */
-const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
-app.use(cors(corsOptions))
 
 /**
  * Log HTTP requests to the console.
