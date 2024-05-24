@@ -119,8 +119,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 /**
  * Handle root endpoint.
  */
-// app.use();
-app.get("/", express.static(path.join(__dirname, '..', 'docs', 'jsdoc')), (req, res) => {
+app.use(express.static(path.join(__dirname, '..', 'docs', 'jsdoc')));
+app.get("/", (req, res) => {
     const filePath = path.join(__dirname, '..', 'docs', 'jsdoc', 'index.html');
     return res.sendFile(filePath);
 });
