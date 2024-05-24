@@ -42,7 +42,7 @@ const swaggerDocumentation = YAML.load('./swagger.yaml')
 const path = require('path')
 const xss = require('xss')
 const rateLimit = require("express-rate-limit");
-const cookieParser = require(cookieParser)
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
