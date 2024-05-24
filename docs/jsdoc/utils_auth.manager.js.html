@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>utils/auth.manager.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils/auth.manager.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file auth.manager.js
+ * @description manager the following opertions: finding user, creating user, hashing and verifying password, creating and verifying unique id's
+ */
+
+'use strict';
+
+const crypto = require('crypto');
+const db = require('../models');
+
+/**
+ * @class AuthManager
+ * @description manages authentication
+ */
+class AuthManager {
+    /**
+     * @async
+     * @method findUserByPhoneNumber 
+     * @description Find the user with phone number
+     * @param {string} phone
+     * @throws {Error} trows error in case of any failure
+     * @returns {undefined|boolean|Object} - undefined if phone not provided, false if user not found and user object if found
+     */
+    async findUserByPhoneNumber(phone) {
+        try {
+            if (!phone) return undefined
+
+            // find the user 
+            const user = await db.User.findOne({
+                where: { phone }
+            })
+
+            if (!user) return false
+
+            return user
+        } catch (error) {
+            console.log(`utils > auth.manager.js > AuthManager > findUserByPhoneNumber: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method createUser 
+     * @description Create user with name, phone and password
+     * @param {string} name
+     * @param {string} phone
+     * @param {string} password
+     * @param {string} email
+     * @throws {Error} trows error in case of any failure
+     * @returns {undefined|boolean|Object} - undefined if name,phone and password not provided, and if user created, returns user object 
+     */
+    async createUser(name, phone, password, email) {
+        try {
+            if (!name || !phone || !password) return undefined
+
+            // create unique id
+            const userId = await this.createUniqueId('user')
+
+            if (!userId) throw error;
+
+            // hash password
+            const hashedPassword = await this.hashedPassword(password);
+
+            if (!hashedPassword) throw error;
+
+            // create user
+            const user = db.User.create({
+                userId: userId,
+                name: name,
+                phone: phone,
+                password: hashedPassword,
+                email: email,
+            })
+
+            if (!user) throw error
+
+            return user
+        } catch (error) {
+            console.log(`utils > auth.manager.js > AuthManager > createUser: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method hashedPassword
+     * @description salt and hash the password
+     * @param {string} password
+     * @throws {Error} trows error in case of any failure
+     * @returns {string} salted and hashed password
+     */
+    async hashedPassword(password) {
+        try {
+            // create a salt
+            const salt = crypto.randomBytes(16).toString('hex')
+
+            // create a hash
+            const hashedPassword = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex')
+
+            // combine salt with hash
+            const storedPassword = `${salt}:${hashedPassword}`
+
+            return storedPassword
+        } catch (error) {
+            console.log(`src > utils > auth.manager.js > hashedPassword : ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method verifyPassword
+     * @description Verify salted and hashed the password
+     * @param {string} enteredPassword - entered password
+     * @param {string} storedPassword - stored password
+     * @throws {Error} trows error in case of any failure
+     * @returns {boolean} True if password is correct
+     */
+    async verifyPassword(enteredPassword, storedPassword) {
+        try {
+            const [salt, storedHash] = storedPassword.split(":")
+
+            const enteredHash = crypto.pbkdf2Sync(enteredPassword, salt, 10000, 64, 'sha256').toString('hex')
+
+            return enteredHash === storedHash
+        } catch (error) {
+            console.log(`src > utils > auth.manager.js > verifyPassword : ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method createUniqueId
+     * @description Create unique id for different purpose
+     * @param {string} type - unique id type
+     * @throws {Error} trows error in case of any failure
+     * @returns {string} unique id
+     */
+    async createUniqueId(type = 'user') {
+        try {
+            // create unqiue id string
+            const unique_string = Date.now().toString(16)
+            let id
+
+            // check the id format
+            switch (type) {
+                case 'user':
+                    id = `${unique_string}/u`
+                    break;
+                case 'contact':
+                    id = `${unique_string}/c`
+                    break;
+                case 'spam':
+                    id = `${unique_string}/s`
+                    break;
+                default:
+                    id = `${unique_string}/u`
+                    break;
+            }
+
+            if (id) return id
+        } catch (error) {
+            console.log(`src > utils > auth.manager.js > createUniqueId : ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method validateUserId
+     * @description validates unique or user id format
+     * @param {string} id - unique id 
+     * @throws {Error} trows error in case of any failure
+     * @returns {boolean} True if id format is correct
+     */
+    async validateUserId(id) {
+        try {
+            const userTypes = ['u', 'c', 's']
+
+            const splitId = id.split('/')
+
+            if (splitId.length !== 2) throw new Error("Invalid user id format")
+
+            const [dateString, specialSymbol] = splitId
+
+            if (!userTypes.includes(specialSymbol)) throw new Error("Invalid user id format")
+
+            const dateStringRegex = /^[0-9a-f]{11}$/i;
+
+            if (!dateStringRegex.test(dateString)) throw new Error("Invalid user id format")
+
+            return true
+        } catch (error) {
+            console.log(`src > utils > auth.manager.js > validateUserId : ${error.message}`)
+            throw error
+        }
+    }
+}
+
+module.exports = { AuthManager }</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

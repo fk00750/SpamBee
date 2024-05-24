@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>utils/contact.manager.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils/contact.manager.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file contact.manager.js
+ * @description manages the following opertions: get contacts, add contact, delete cotact and update contact
+ */
+
+const db = require("../models")
+const { AuthManager } = require("./auth.manager")
+const CustomErrorHandler = require("./custom.error.handler")
+const authManager = new AuthManager()
+
+/**
+ * @class Contact Manager
+ * @description Manage contacts
+ */
+class ContactManger {
+    /**
+     * @async
+     * @method findContactByNumber
+     * @description Find contacts by phone number.
+     * @param {string} phone - phone number.
+     * @param {string} userId - user Id of the user.
+     * @throws {Error} if something went wrong during the search.
+     * @returns {Object|boolean|undefined} If phone not provided returns undefined, if contact not found return false, if contact found return contact.
+    */
+    async findContactByNumber(phone, userId) {
+        try {
+            if (!phone) return undefined
+
+            const contact = await db.Contact.findOne({
+                where: { phone, userId }
+            })
+
+            if (!contact) return false
+
+            return contact
+        } catch (error) {
+            console.log(`utils > contact.manager.js > ContactManger > findUserByPhoneNumber: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method findContactById
+     * @description Find contacts by contact id.
+     * @param {string} userId - user Id of the user.
+     * @param {string} contactId - contact id.
+     * @throws {Error} if something went wrong during the search.
+     * @returns {Object|boolean|undefined} If user id or contact id not provided returns undefined, if contact not found return false, if contact found return contact.
+    */
+    async findContactById(userId, contactId) {
+        try {
+            if (!userId || !contactId) return undefined
+
+            const contact = await db.Contact.findOne({
+                where: { userId, contactId },
+                attributes: ['name', 'phone', 'email','contactId']
+            })
+
+            if (!contact) return false
+
+            return contact
+        } catch (error) {
+            console.log(`utils > contact.manager.js > ContactManger > findUserByPhoneNumber: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method retrieveAllContacts
+     * @description Find all contacts by user id.
+     * @param {string} userId - user Id of the user.
+     * @throws {Error} if something went wrong during the search.
+     * @returns {Array|boolean|undefined} If user id not provided returns undefined, if contact not found return false, if contact found return contact array.
+     */
+    async retrieveAllContacts(userId) {
+        if (!userId) return undefined
+
+        const result = await db.Contact.findAll(
+            {
+                where: { userId: userId },
+                attributes: ['name', 'phone', 'contactId']
+            }
+        )
+
+        if (!result || result.length === 0) return false
+
+        return result
+    }
+
+    /**
+     * @async
+     * @method addContact
+     * @description add new contact with name, phone, userId(userId), user referrance id (userId_ref).
+     * @param {string} name - contact name.
+     * @param {string} phone - contact phone.
+     * @param {string} userId - user Id of the user (user.userId).
+     * @param {number} userId_ref - user referrance id (user.id).
+     * @throws {Error} if something went wrong during addition of contact.
+     * @returns {Object|null|undefined} If name or phone or userId or userId_ref not provided returns undefined, if contact add process failed returns null.
+     */
+    async addContact(name, phone, userId, userId_ref) {
+        try {
+            if (!name || !phone || !userId || !userId_ref) return undefined
+
+            let email
+
+            // check if contact exist in user database
+            const user = await authManager.findUserByPhoneNumber(phone)
+
+            if (user) email = user.email
+
+            const contactId = await authManager.createUniqueId('contact')
+
+            if (!contactId) return null
+
+            const contact = await db.Contact.create({
+                userId_ref: userId_ref,
+                userId: userId,
+                contactId: contactId,
+                name: name,
+                phone: phone,
+                email: email
+            })
+
+            if (!contact) return null
+
+            return contact
+        } catch (error) {
+            console.log(`utils > contact.manager.js > ContactManger > addContact: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method deleteContact
+     * @description Find contacts by contact id.
+     * @param {string} userId - user Id of the user.
+     * @param {string} contactId - contact id.
+     * @throws {Error} if something went wrong during the delete process.
+     * @returns {number|boolean|undefined} If user id or contact id not provided returns undefined, if contact delete process failed returns null and if contact deleted return number of rows.
+     */
+    async deleteContact(userId, contactId) {
+        try {
+            if (!userId || !contactId) return undefined
+
+            const isContactDeleted = await db.Contact.destroy(
+                {
+                    where: { userId: userId, contactId: contactId }
+                }
+            )
+
+            if (!isContactDeleted) throw null
+
+            return isContactDeleted
+        } catch (error) {
+            console.log(`utils > contact.manager.js > ContactManger > deleteContact: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method updateContact
+     * @description Update the contact by userId and contactId
+     * @param {string} userId - user Id of the user.
+     * @param {string} contactId - contact id.
+     * @param {string} name - new name.
+     * @param {string} phone - new phone.
+     * @throws {Error} if something went wrong during the update process.
+     * @returns {number|boolean|undefined} If user id or contact id not provided returns undefined, if contact update process failed returns null and if contact updated return number of rows.
+     */
+    async updateContact(userId, contactId, name, phone) {
+        try {
+            if (!userId || !contactId) return undefined
+
+            let fieldToUpdate = {}
+
+            if (name) fieldToUpdate.name = name
+            if (phone) fieldToUpdate.phone = phone
+
+            if (Object.keys(fieldToUpdate).length === 0) return undefined
+
+            const result = await db.Contact.update(fieldToUpdate, {
+                where: { userId, contactId }
+            })
+
+            if (!result || result[0] === 0) return null
+
+            return result[0]
+        } catch (error) {
+            console.log(`utils > contact.manager.js > ContactManger > updateContact: ${error.message}`)
+            return error
+        }
+    }
+}
+
+module.exports = { ContactManger }</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

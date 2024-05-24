@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>utils/token.manager.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils/token.manager.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { decode } = require("jsonwebtoken")
+const db = require("../models")
+
+/**
+ * @class TokenManager
+ * @description Class responsible for managing JWT tokens such as refresh tokens.
+ */
+class TokenManager {
+    /**
+     * @async
+     * @method findRefreshToken
+     * @description Find an existing refresh token by its value.
+     * @param {string} refreshToken - The refresh token value.
+     * @returns {object|boolean|undefined} Returns the existing refresh token object, false if not found, or undefined if no token provided.
+     */
+    async findRefreshToken(refreshToken) {
+        try {
+            if (!refreshToken) return undefined
+
+            // Find the refresh token in the database.
+            const token = await db.Refresh.findOne({
+                where: { refreshToken: refreshToken, status: true }
+            })
+
+            // If token is null, return false indicating not found.
+            if (!token) return false
+
+            // Return the token object.
+            return token
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > findRefreshToken: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method findRefreshTokenById
+     * @description Find an existing refresh token by user ID.
+     * @param {string} userId - The ID of the user associated with the refresh token.
+     * @returns {object|boolean|undefined} Returns the existing refresh token object, false if not found, or undefined if no user ID provided.
+     */
+    async findRefreshTokenById(userId) {
+        try {
+            if (!userId) return undefined
+
+            // Find the refresh token by user ID in the database.
+            const token = await db.Refresh.findOne({
+                where: { userId: userId }
+            })
+
+            // If token is null, return false indicating not found.
+            if (!token) return false
+
+            // Return the token object.
+            return token
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > findRefreshTokenById: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method updateRefreshToken
+     * @description Update the status of a refresh token.
+     * @param {string} refreshToken - The refresh token value.
+     * @param {string} userId - The ID of the user associated with the refresh token.
+     * @returns {number|null|undefined} Returns the number of affected rows, null if update fails, or undefined if parameters are invalid.
+     */
+    async updateRefreshToken(refreshToken, userId) {
+        try {
+            if (!userId || !refreshToken) return undefined
+
+            // Update the status of the refresh token in the database.
+            const result = await db.Refresh.update(
+                { status: false },
+                { where: { userId, refreshToken } }
+            )
+
+            // If result is null or no rows were affected, return null indicating update failure.
+            if (!result || result[0] === 0) return null
+
+            // Return the number of affected rows.
+            return result[0]
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > updateRefreshToken: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method deleteExistingRefreshTokens
+     * @description Delete all existing refresh tokens associated with a user.
+     * @param {string} userId - The ID of the user whose refresh tokens are to be deleted.
+     * @returns {number|null|undefined} Returns the number of deleted tokens, null if deletion fails, or undefined if no user ID provided.
+     */
+    async deleteExistingRefreshTokens(userId) {
+        try {
+            if (!userId) return undefined
+
+            // Delete all refresh tokens associated with the user from the database.
+            const result = await db.Refresh.destroy(
+                {
+                    where: { userId: userId }
+                }
+            )
+
+            // If result is null, throw an exception.
+            if (!result) throw null
+
+            // Return the number of deleted tokens.
+            return result
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > deleteAllRefreshToken: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method decodeToken
+     * @description Decode a JWT token to retrieve its payload.
+     * @param {string} token - The JWT token to decode.
+     * @returns {object|null|undefined} Returns the decoded token payload, null if decoding fails, or undefined if no token provided.
+     */
+    async decodeToken(token) {
+        try {
+            if (!token) return undefined
+
+            // Decode the JWT token.
+            const decodedToken = decode(token, { complete: true })
+
+            // If decodedToken is null, return null indicating decoding failure.
+            if (!decodedToken) return null
+
+            // Extract and return the payload from the decoded token.
+            const { payload } = decodedToken
+            if (payload) return payload
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > decodeToken: ${error.message}`)
+            throw error
+        }
+    }
+
+    /**
+     * @async
+     * @method storeRefreshToken
+     * @description Store a new refresh token in the database.
+     * @param {string} refreshToken - The refresh token value.
+     * @param {string} userId - The ID of the user associated with the refresh token.
+     * @param {string} userId_ref - The reference user ID.
+     * @param {Date} expiresAt - The expiration date of the token.
+     * @returns {object|null|undefined} Returns the stored refresh token object, null if storage fails, or undefined if parameters are invalid.
+     */
+    async storeRefreshToken(refreshToken, userId, userId_ref, expiresAt) {
+        try {
+            if (!refreshToken || !userId || !userId_ref || !expiresAt) return undefined
+
+            // Store the refresh token in the database.
+            const result = db.Refresh.create({
+                userId_ref: userId_ref,
+                userId: userId,
+                refreshToken: refreshToken,
+                expiresAt: expiresAt,
+                status: true
+            })
+
+            // If result is null, return null indicating storage failure.
+            if (!result) return null
+
+            // Return the stored refresh token object.
+            return result
+        } catch (error) {
+            // Log the error and re-throw.
+            console.log(`utils > refresh.manager.js > TokenManager > storeRefreshToken: ${error.message}`)
+            throw error
+        }
+    }
+}
+
+module.exports = { TokenManager }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

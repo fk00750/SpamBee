@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1>SpamBee REST API</h1>
+<!-- <img src="./public/README_img.png"> -->
+<p>Welcome to <strong>SpamBee API</strong>, a robust REST API designed to empower mobile applications with spam detection and phone number lookup functionalities. Similar to popular apps in the market, SpamBee API allows users to determine if a phone number is associated with spam and to search for a person's name by entering their phone number.</p>
+<h2>👋 Introduction</h2>
+<p>SpamBee API is built to offer seamless integration with mobile applications seeking to enhance user privacy and security. Whether you're developing a messaging app, a caller ID service, or a contact management tool, SpamBee API provides the essential functionalities to identify and manage phone numbers effectively.</p>
+<h2>🔑 Key Features</h2>
+<ul>
+<li><strong>User Authentication:</strong> Secure registration and login functionality to authenticate users and protect their data.</li>
+<li><strong>Profile Management:</strong> Options to view and update user profiles, ensuring accurate information.</li>
+<li><strong>Contact Management:</strong> Capability to manage contacts, including searching for contacts by phone number.</li>
+<li><strong>Spam Detection:</strong> Advanced algorithms to identify spam phone numbers and protect users from unwanted communications.</li>
+</ul>
+<h2>🧰 Tech Stack</h2>
+<ul>
+<li>Node.js</li>
+<li>Express.js</li>
+<li>PostgreSQL</li>
+<li>Sequelize ORM</li>
+</ul>
+<h2>✨ Features</h2>
+<h3>User Authentication and Profile Management</h3>
+<ul>
+<li><strong>Register Route:</strong> Users can register with a name, phone number, and password. An optional email address can also be provided.</li>
+<li><strong>Login Route:</strong> Registered users can log in with their phone number and password.</li>
+<li><strong>Profile Management:</strong> Users can update their email, phone number, name, and password.</li>
+<li><strong>View User Profile:</strong> Users can view their profile information after logging in.</li>
+</ul>
+<h3>Contacts Management</h3>
+<ul>
+<li><strong>Add Contact:</strong> Users can add new contacts to their list.</li>
+<li><strong>Get Contact:</strong> Users can retrieve a specific contact by its ID.</li>
+<li><strong>Get Contacts:</strong> Users can retrieve all their contacts.</li>
+<li><strong>Delete Contact:</strong> Users can delete a contact from their list.</li>
+<li><strong>Update Contact:</strong> Users can update the details of a contact.</li>
+</ul>
+<h3>Spam Management</h3>
+<ul>
+<li><strong>Mark Number as Spam:</strong> Users can mark a phone number as spam to help other users identify spam callers.</li>
+</ul>
+<h3>Search Functionality</h3>
+<ul>
+<li><strong>Search by Name:</strong> Users can search for people by name in the global database.</li>
+<li><strong>Search by Phone Number:</strong> Users can search for people by phone number in the global database.</li>
+</ul>
+<h3>Others</h3>
+<ul>
+<li><strong>Password Hashing &amp; Verification:</strong> Passwords are securely hashed and verified during login.</li>
+<li><strong>JWT Token Issuance:</strong> Upon successful login, JWT tokens (access and refresh tokens) are issued for authentication.</li>
+<li><strong>Access Control:</strong> Using passport-jwt, access to protected routes is provided only with a valid JWT token.</li>
+<li><strong>Error Handling:</strong> Proper error management system is implemented for graceful handling of errors.</li>
+<li><strong>Database Integration:</strong> PostgreSQL database is used with Sequelize ORM for efficient data storage and retrieval.</li>
+<li><strong>Data Validation:</strong> Validators are implemented to ensure data integrity and security.</li>
+</ul>
+<h3>🔐 Security Enhancements</h3>
+<ul>
+<li><strong>Helmet Middleware:</strong> Various security headers such as Content Security Policy, Referrer Policy, HSTS, Frameguard, and X-Content-Type-Options are implemented using the Helmet middleware.</li>
+<li><strong>CORS Policy:</strong> CORS (Cross-Origin Resource Sharing) policy is implemented to restrict unauthorized access to resources.</li>
+<li><strong>Refresh Token Rotation:</strong> Refresh tokens are rotated to enhance security.</li>
+<li><strong>Refresh Token Management:</strong> Proper management of refresh tokens is implemented to ensure secure authentication.</li>
+<li><strong>Request Validation:</strong> Requests are validated to prevent unauthorized or malformed requests.</li>
+</ul>
+<h3>Data Population</h3>
+<ul>
+<li><strong>Populate Database with Sample Data:</strong> A script is provided to populate the database with a diverse mix of sample data including users, contacts, and spam numbers.</li>
+</ul>
+<h3>Performance and Security Enhancements</h3>
+<ul>
+<li><strong>API Endpoint Optimization:</strong> API endpoints are optimized for performance to ensure efficient handling of requests.</li>
+<li><strong>Security Best Practices:</strong> Additional security best practices such as input validation, rate limiting, etc., are implemented to enhance security.</li>
+<li><strong>Thorough Testing:</strong> Comprehensive testing is conducted to ensure the functionality and performance of the APIs under various scenarios.</li>
+</ul>
+<h2>📌 Installation</h2>
+<ol>
+<li>
+<p>Clone the repository:</p>
+<pre class="prettyprint source lang-bash"><code>git clone https://github.com/fk00750/authenticate.git
+</code></pre>
+</li>
+<li>
+<p>Navigate to the project directory:</p>
+<pre class="prettyprint source lang-bash"><code>cd authenticate
+</code></pre>
+</li>
+<li>
+<p>Install dependencies:</p>
+<pre class="prettyprint source lang-bash"><code>npm install
+</code></pre>
+</li>
+<li>
+<p>Set up PostgreSQL database and update configuration in <code>config/config.database.js</code>.</p>
+</li>
+<li>
+<p>Run the migration to create database tables:</p>
+<pre class="prettyprint source lang-bash"><code>npx sequelize-cli db:migrate
+</code></pre>
+</li>
+<li>
+<p>Start the server:</p>
+<pre class="prettyprint source lang-bash"><code>npm start
+</code></pre>
+</li>
+<li>
+<p>The server will be running at <code>http://localhost:4001</code>.</p>
+</li>
+</ol>
+<h2>📋 API Documentation</h2>
+<p>Detailed API documentation including endpoints, request/response formats, and usage examples can be found <a href="https://authenticate-kx0v.onrender.com/api-docs">here</a>.</p>
+<h2>Testing</h2>
+<p>To run tests:</p>
+<pre class="prettyprint source lang-bash"><code>npm run test
+</code></pre></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            app.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Entry point of the Express application.
+This file configures and initializes the Express server,
+sets up middleware for security, logging, parsing requests,
+authentication, session management, error handling,
+and defines routes for various endpoints.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>Entry point of the Express application.
+This file configures and initializes the Express server,
+sets up middleware for security, logging, parsing requests,
+authentication, session management, error handling,
+and defines routes for various endpoints.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li>module:express</li>
+        
+            <li>module:morgan</li>
+        
+            <li>module:cors</li>
+        
+            <li>module:errorHandler</li>
+        
+            <li>module:AuthRouter</li>
+        
+            <li>module:ProfileRouter</li>
+        
+            <li>module:ContactRouter</li>
+        
+            <li>module:SpamRouter</li>
+        
+            <li>module:SearchRouter</li>
+        
+            <li>module:TokenRouter</li>
+        
+            <li>module:passport</li>
+        
+            <li>module:helmet</li>
+        
+            <li>module:passportConfig</li>
+        
+            <li>module:session</li>
+        </ul>
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            config/passport.config.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Configuration file for passport.js and jwt authentication.
+Handle access and refresh token strategies</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config_passport.config.js.html">config/passport.config.js</a>, <a href="config_passport.config.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>Configuration file for passport.js and jwt authentication.
+Handle access and refresh token strategies</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            config/passport.config.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Configuration file for passport.js and jwt authentication.
+Handle access and refresh token strategies</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config_passport.config.js.html">config/passport.config.js</a>, <a href="config_passport.config.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>Configuration file for passport.js and jwt authentication.
+Handle access and refresh token strategies</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            utils/auth.manager.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>manager the following opertions: finding user, creating user, hashing and verifying password, creating and verifying unique id's</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_auth.manager.js.html">utils/auth.manager.js</a>, <a href="utils_auth.manager.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>manager the following opertions: finding user, creating user, hashing and verifying password, creating and verifying unique id's</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            utils/auth.manager.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>manager the following opertions: finding user, creating user, hashing and verifying password, creating and verifying unique id's</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_auth.manager.js.html">utils/auth.manager.js</a>, <a href="utils_auth.manager.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>manager the following opertions: finding user, creating user, hashing and verifying password, creating and verifying unique id's</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            utils/contact.manager.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>manages the following opertions: get contacts, add contact, delete cotact and update contact</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_contact.manager.js.html">utils/contact.manager.js</a>, <a href="utils_contact.manager.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>manages the following opertions: get contacts, add contact, delete cotact and update contact</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            utils/contact.manager.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>manages the following opertions: get contacts, add contact, delete cotact and update contact</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_contact.manager.js.html">utils/contact.manager.js</a>, <a href="utils_contact.manager.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>manages the following opertions: get contacts, add contact, delete cotact and update contact</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

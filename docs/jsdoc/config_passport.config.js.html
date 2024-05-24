@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>config/passport.config.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">config/passport.config.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file passport.config.js
+ * @fileoverview Configuration file for passport.js and jwt authentication.
+ * Handle access and refresh token strategies
+ */
+
+const path = require('path');
+const fs = require('fs');
+const { Strategy, ExtractJwt } = require('passport-jwt');
+const db = require('../models');
+
+const pathToAccessTokenKey = path.join(__dirname, '../..', 'AccessTokenPublicKey.pem');
+const AccessTokenPublicKey = fs.readFileSync(pathToAccessTokenKey, 'utf-8');
+
+const pathToRefreshTokenKey = path.join(__dirname, '../..', 'RefreshTokenPublicKey.pem');
+const RefreshTokenPublicKey = fs.readFileSync(pathToRefreshTokenKey, 'utf-8');
+
+/**
+ * @function passportStrategy - configure jwt authentication using passport
+ * @param {Object} passport - passport instance
+ * @param {string} usageName - name of the strategy (ex: jwt-access)
+ * @param {string} KEY - public key to verify jwt
+ */
+const passportStrategy = (passport, usageName, KEY) => {
+    passport.use(
+        usageName,
+        new Strategy(
+            {
+                jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+                secretOrKey: KEY,
+                algorithms: ['RS256'],
+            },
+            async (jwtPayload, done) => {
+                try {
+                    const user = await db.User.findOne({
+                        where: { userId: jwtPayload.sub },
+                        include: [
+                            {
+                                model: db.Refresh,
+                                as: "refreshes",
+                                attributes: ['refreshToken']
+                            },
+                        ],
+                        subQuery: false,
+                        raw: true
+                    });
+
+                    if (user) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                } catch (error) {
+                    return done(error, false);
+                }
+            }
+        )
+    );
+};
+
+/**
+ * @function passportConfig - jwt strategies for access and refresh tokens with passport.
+ * @param {Object} passport - passport instance 
+ */
+const passportConfig = (passport) => {
+    /**
+        * JWT authentication strategy for access tokens and refresh tokens using the passportStrategy function.
+        * It passes the passport instance, the usageName string (either "jwt-access" or "jwt-refresh"), and the public key (either ACCESS_PUB_KEY or Refresh_PUB_KEY) as arguments to the passportStrategy function.
+        * If an error occurs while registering the strategy, it is logged to the console.
+    */
+    try {
+        passportStrategy(passport, 'jwt-access', AccessTokenPublicKey);
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    try {
+        passportStrategy(passport, 'jwt-refresh', RefreshTokenPublicKey);
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    /**
+     * @method passport.serializeUser - Serialize user information in the session
+     * @param {Object} user - user object
+     * @param {function} done - The callback function to be called when serialization is completed.
+     */
+    passport.serializeUser((user, done) => {
+        done(null, JSON.stringify(user));
+    });
+
+    /**
+     * @method passport.deserializeUser - Deserialize user information from session
+     * @param {Object} user - user object
+     * @param {function} done - The callback function to be called when deserialization is completed.
+     */
+    passport.deserializeUser((user, done) => {
+        done(null, JSON.parse(user));
+    });
+};
+
+module.exports = { passportConfig };</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

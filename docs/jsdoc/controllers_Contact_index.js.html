@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>controllers/Contact/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">controllers/Contact/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { ContactManger } = require("../../utils/contact.manager")
+const CustomErrorHandler = require("../../utils/custom.error.handler")
+
+const contactManager = new ContactManger()
+
+/**
+ * @async
+ * @function GetContacts
+ * @description Get all contacts for the registered (authenticated) user.
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during get contacts process.
+ * @returns {Response} returns a JSON response with all contacts.
+ */
+exports.GetContacts = async (req, res, next) => {
+    try {
+        const user = req.user
+
+        // get all contact with userId
+        const Contacts = await contactManager.retrieveAllContacts(user.userId)
+
+        // if contacts not found response with error that contacts not found
+        if (!Contacts) return next(CustomErrorHandler.notFound("contacts not found"))
+
+        // response with status 200 and all contacts
+        return res.status(200).json({
+            Contacts: Contacts
+        })
+    } catch (error) {
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Contact > index.js > GetContacts - ${error.message}`)
+        next(error)
+    }
+}
+
+/**
+ * @async
+ * @function GetContacts
+ * @description Get single contacts for the registered (authenticated) user.
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during get contact process.
+ * @returns {Response} returns a JSON response with a single contacts.
+ */
+exports.GetContact = async (req, res, next) => {
+    try {
+        const user = req.user
+        const contactId = req.params.contactId
+
+        // get contact with userId and contactId
+        const Contact = await contactManager.findContactById(user.userId, contactId)
+
+        // if contact not found, response with error that contact not found
+        if (!Contact) return next(CustomErrorHandler.notFound("contact not found"))
+
+        // response with status 200 and contact
+        return res.status(200).json({
+            Contact: Contact
+        })
+    } catch (error) {
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Contact > index.js > GetContact - ${error.message}`)
+        next(error)
+    }
+}
+
+/**
+ * @async
+ * @function GetContacts
+ * @description Add a new contact for the registered (authenticated) user.
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during get contacts process.
+ * @returns {Response} returns a JSON response status code and message.
+ */
+exports.AddContact = async (req, res, next) => {
+    try {
+        const user = req.user
+        const { name, phone } = req.body
+
+        // check if the phone number already exists
+        const contact = await contactManager.findContactByNumber(phone, user.userId)
+
+        // if phone number already exists response with error that contact already exists
+        if (contact) return next(CustomErrorHandler.alreadyExist("contact already exist"))
+
+        // add new contact with name, phone, userId and user referrance id
+        const isContactAdded = await contactManager.addContact(name, phone, user.userId, user.id)
+
+        // if add contact process failed, response with error that something went wrong and unable to add contact
+        if (!isContactAdded) return next(CustomErrorHandler.somethingWentWrong("unable to add contact"))
+
+        // response with status 200 and success message
+        return res.status(200).json({
+            status: 200,
+            message: "success"
+        })
+    } catch (error) {
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Contact > index.js > AddContact - ${error.message}`)
+        next(error)
+    }
+}
+
+/**
+ * @async
+ * @function DeleteContact
+ * @description Delete a particular contact by contactId for registered (authenticated) user.
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during delete contact process.
+ * @returns {Response} returns a JSON response with deleted contact status and message.
+ */
+exports.DeleteContact = async (req, res, next) => {
+    try {
+        const user = req.user
+        const contactId = req.params.contactId
+
+        // delete the contact by contactId for specific user (user.userId)
+        const Contact = await contactManager.deleteContact(user.userId, contactId)
+
+        // If contact deletion fails, response with an error that something went wrong 
+        if (!Contact) return next(CustomErrorHandler.notFound("unable to delete contact"))
+
+        // response with deleted contact status 1 and message
+        return res.status(200).json({
+            Contact: Contact,
+            message: 'success'
+        })
+    } catch (error) {
+        console.log(error)
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Contact > index.js > DeleteContact - ${error.message}`)
+        next(error)
+    }
+}
+
+/**
+ * @async
+ * @function UpdateContact
+ * @description Update a particular contact by contactId for registered (authenticated) user.
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during update contact process.
+ * @returns {Response} returns a JSON response with updated contact status and message.
+ */
+exports.UpdateContact = async (req, res, next) => {
+    try {
+        const user = req.user
+        const contactId = req.params.contactId
+        const name = req.body.name
+        const phone = req.body.phone
+
+        // update the contact by contactId for specific user (user.userId)
+        const Contact = await contactManager.updateContact(user.userId, contactId, name, phone)
+
+        // If contact updation fails, response with an error that something went wrong 
+        if (!Contact) return next(CustomErrorHandler.notFound("unable to update contact"))
+
+        // response with updated contact status 1 and message
+        return res.status(200).json({
+            Contact: Contact,
+            message: 'success'
+        })
+    } catch (error) {
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Contact > index.js > UpdateContact - ${error.message}`)
+        next(error)
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

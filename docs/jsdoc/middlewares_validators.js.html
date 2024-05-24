@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>middlewares/validators.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">middlewares/validators.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const CustomErrorHandler = require("../utils/custom.error.handler");
+
+/**
+ * @function validateRequest
+ * @description Validate that the request body is not empty.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the request body is empty.
+ */
+const validateRequest = (req, res, next) => {
+    if (!req.body) return next(new CustomErrorHandler(400, "Invalid Request"));
+
+    if (Object.keys(req.body).length === 0) return next(new CustomErrorHandler(400, "Invalid Request"));
+
+    next();
+};
+
+/**
+ * @function validatePhone
+ * @description Validate the phone number in the request body.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the phone number is invalid.
+ */
+const validatePhone = (req, res, next) => {
+    if (!req.body.phone) return next(new CustomErrorHandler(400, "Invalid Phone Number **"));
+
+    const regex = /(0|91)?[6-9][0-9]{9}/;
+    const result = regex.test(String(req.body.phone).toLowerCase());
+
+    if (!result) return next(new CustomErrorHandler(400, "Invalid Phone Number"));
+
+    next();
+};
+
+/**
+ * @function validateName
+ * @description Validate the name in the request body.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the name is invalid.
+ */
+const validateName = (req, res, next) => {
+    if (!req.body.name || req.body.name.length &lt; 2) return next(new CustomErrorHandler(400, "Invalid Name **"));
+
+    const regex = /^[a-zA-Z ]+$/;
+    const result = regex.test(req.body.name);
+
+    if (!result) return next(new CustomErrorHandler(400, "Invalid Name *"));
+
+    next();
+};
+
+/**
+ * @function validateEmail
+ * @description Validate the email in the request body.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the email is invalid.
+ */
+const validateEmail = (req, res, next) => {
+    if (!req.body.email) return next(new CustomErrorHandler(400, "Invalid Email **"));
+
+    const regex = /^[a-zA-Z0-9.!#$%&amp;'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const result = regex.test(String(req.body.email).toLowerCase());
+
+    if (!result) return next(new CustomErrorHandler(400, "Invalid Email"));
+
+    next();
+};
+
+/**
+ * @function validateTempMail
+ * @description Validate the email domain in the request body against a list of allowed providers.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the email domain is invalid.
+ */
+const validateTempMail = (req, res, next) => {
+    if (!req.body.email) return next(new CustomErrorHandler(400, "Invalid Email **"));
+
+    const providers = [
+        "@gmail.com",
+        "@outlook.com",
+        "@yahoo.com",
+        "@hotmail.com",
+        "@aol.com",
+        "@icloud.com",
+        "@zoho.com",
+        "@byom.de"
+    ];
+
+    const regex = /@(\w+)\.(\w+)$/;
+    const domain = req.body.email.match(regex);
+
+    if (!domain) return next(new CustomErrorHandler(400, "Invalid Email domain *"));
+
+    if (!providers.includes(domain[0])) return next(new CustomErrorHandler(400, "Invalid Email domain **"));
+
+    next();
+};
+
+/**
+ * @function validatePassword
+ * @description Validate the password in the request body.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the password is invalid.
+ */
+const validatePassword = (req, res, next) => {
+    if (!req.body.password) return next(new CustomErrorHandler(400, "Invalid Password"));
+
+    const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&amp;*()_+\-=\[\]{;,:'".&lt;>/?]).{8,}$/;
+    const result = regex.test(req.body.password);
+
+    if (!result) return next(new CustomErrorHandler(400, "Invalid Password"));
+
+    next();
+};
+
+/**
+ * @function validateAuthToken
+ * @description Validate the authorization token in the request headers.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @throws {CustomErrorHandler} If the authorization token is invalid.
+ */
+const validateAuthToken = (req, res, next) => {
+    if (!req.headers['authorization'] || req.headers['authorization'].split(' ').length &lt;= 1)
+        return next(new CustomErrorHandler(400, "Invalid auth token **"));
+
+    const token = req.headers['authorization'].split(' ')[1];
+    const { 'refreshes.refreshToken': authenticedToken } = req.user;
+
+    if (authenticedToken !== token) return next(new CustomErrorHandler(400, "Invalid auth token"));
+
+    req.token = token;
+
+    next();
+};
+
+module.exports = { validateAuthToken, validateName, validatePhone, validatePassword, validateEmail, validateTempMail, validateRequest };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

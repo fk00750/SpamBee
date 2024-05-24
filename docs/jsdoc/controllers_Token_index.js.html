@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>controllers/Token/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthManager.html">AuthManager</a></li><li></li><li><a href="ContactManger.html">ContactManger</a></li><li></li><li><a href="ProfileManager.html">ProfileManager</a></li><li></li><li><a href="SearchManager.html">SearchManager</a></li><li></li><li><a href="SpamManager.html">SpamManager</a></li><li></li><li><a href="TokenManager.html">TokenManager</a></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#DeleteContact">DeleteContact</a></li><li><a href="global.html#GetContacts">GetContacts</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#RefreshTokenHanlder">RefreshTokenHanlder</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#SearchByNameOrPhone">SearchByNameOrPhone</a></li><li><a href="global.html#SearchByQuery">SearchByQuery</a></li><li><a href="global.html#SpamNumber">SpamNumber</a></li><li><a href="global.html#UpdateContact">UpdateContact</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#createUniqueId">createUniqueId</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#decodeToken">decodeToken</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingRefreshTokens">deleteExistingRefreshTokens</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findContactByNumber">findContactByNumber</a></li><li><a href="global.html#findRefreshToken">findRefreshToken</a></li><li><a href="global.html#findRefreshTokenById">findRefreshTokenById</a></li><li><a href="global.html#findSpamNumber">findSpamNumber</a></li><li><a href="global.html#findUserByPhoneNumber">findUserByPhoneNumber</a></li><li><a href="global.html#hashedPassword">hashedPassword</a></li><li><a href="global.html">issueToken - issueToken method - method to generate token</a></li><li><a href="global.html#markNumberSpam">markNumberSpam</a></li><li><a href="global.html#passportConfig-jwtstrategiesforaccessandrefreshtokenswithpassport.">passportConfig - jwt strategies for access and refresh tokens with passport.</a></li><li><a href="global.html#passportStrategy-configurejwtauthenticationusingpassport">passportStrategy - configure jwt authentication using passport</a></li><li><a href="global.html#retrieveAllContacts">retrieveAllContacts</a></li><li><a href="global.html#storeRefreshToken">storeRefreshToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateEmail">updateEmail</a></li><li><a href="global.html#updateName">updateName</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#updatePhone">updatePhone</a></li><li><a href="global.html#updateRefreshToken">updateRefreshToken</a></li><li><a href="global.html#validateAuthToken">validateAuthToken</a></li><li><a href="global.html#validateEmail">validateEmail</a></li><li><a href="global.html#validateName">validateName</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#validatePhone">validatePhone</a></li><li><a href="global.html#validateRequest">validateRequest</a></li><li><a href="global.html#validateTempMail">validateTempMail</a></li><li><a href="global.html#validateUserId">validateUserId</a></li><li><a href="global.html#verifyPassword">verifyPassword</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">controllers/Token/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const CustomErrorHandler = require("../../utils/custom.error.handler")
+const IssueAccessAndRefreshToken = require("../../utils/jwt/issue.jwt.token")
+const { TokenManager } = require("../../utils/token.manager")
+
+const tokenManager = new TokenManager()
+
+/**
+ * @async
+ * @function RefreshTokenHanlder
+ * @description Handle token management
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ * @param {Function} next - next middleware function.
+ * @throws {Error} In case of any error during registration.
+ * @returns {Response} returns a JSON response with status and message.
+ */
+exports.RefreshTokenHanlder = async (req, res, next) => {
+    try {
+        const user = req.user
+        const refreshToken = req.token
+
+        // check existing refresh token
+        const existingRefreshToken = await tokenManager.findRefreshToken(refreshToken)
+
+        // check token validity
+        if (!existingRefreshToken || existingRefreshToken.status !== true || existingRefreshToken.expiresAt &lt; Math.floor(Date.now() / 1000))
+            return next(CustomErrorHandler.unAuthorized("Invalid refresh token **"))
+
+        // update the status of existing token to invalid
+        const isExistingTokenUpdated = await tokenManager.updateRefreshToken(refreshToken, user.userId)
+
+        if (!isExistingTokenUpdated) return next(CustomErrorHandler.somethingWentWrong("unable to refresh the token"))
+
+        // delete all the previous refresh token of the user
+        const isExistingTokenDeleted = await tokenManager.deleteExistingRefreshTokens(user.userId)
+
+        if (!isExistingTokenDeleted) return next(CustomErrorHandler.somethingWentWrong("unable to refresh the token"))
+
+        // issue new access and refresh token
+        const newAccessToken = await IssueAccessAndRefreshToken.issueAccessToken(user.userId)
+        const newRefreshToken = await IssueAccessAndRefreshToken.issueRefreshToken(user.userId)
+
+        if (!newAccessToken || !newRefreshToken) return next(CustomErrorHandler.somethingWentWrong())
+
+        const decode = await tokenManager.decodeToken(newRefreshToken)
+
+        if (!decode) return next(CustomErrorHandler.somethingWentWrong("unable to refresh the token"))
+
+        const { exp: expiresAt } = decode
+
+        // store new refresh token
+        const storeNewRefreshToken = await tokenManager.storeRefreshToken(newRefreshToken, user.userId, user.id, expiresAt)
+
+        if (!storeNewRefreshToken) return next(CustomErrorHandler.somethingWentWrong("unable to refresh the token"))
+
+        return res.status(200).json({
+            success: true,
+            message: 'success',
+            accessToken: newAccessToken,
+            refreshToken: newRefreshToken
+        })
+    } catch (error) {
+        // log the error and pass it to error handler middleware
+        console.log(`Error: src > controllers > Token > index.js > TokenHandler - ${error.message}`)
+        next(error)
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Fri May 24 2024 13:04:02 GMT+0530 (India Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
