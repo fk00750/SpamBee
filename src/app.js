@@ -47,25 +47,25 @@ const app = express();
  * Apply various security-related HTTP headers to the responses.
  * @see {@link https://www.npmjs.com/package/helmet} for more information about helmet middleware.
  */
-// app.use(
-//     helmet({
-//         contentSecurityPolicy: {
-//             directives: {
-//                 defaultSrc: ["'self'", "https://authenticate-kx0v.onrender.com"],
-//                 // connectSrc: ["'self'", "https://authenticate-kx0v.onrender.com"],
-//             },
-//         },
-//         referrerPolicy: { policy: "origin" }, // Changed from 'no-referrer'
-//         hsts: {
-//             maxAge: 21945600, // 254 days
-//             includeSubDomains: false,
-//         },
-//         frameguard: {
-//             action: "deny",
-//         },
-//         noSniff: true,
-//     })
-// );
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                connectSrc: ["'self'", "https://authenticate-kx0v.onrender.com"],
+            },
+        },
+        referrerPolicy: { policy: "no-referrer" },
+        hsts: {
+            maxAge: 21945600, // 254 days
+            includeSubDomains: false,
+        },
+        frameguard: {
+            action: "deny",
+        },
+        noSniff: true,
+    })
+);
 
 /**
  * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
@@ -92,9 +92,9 @@ app.use(cors(corsOptions))
  */
 app.use(express.json());
 
-/**
- * Parse incoming request bodies in URL-encoded format.
- */
+// /**
+//  * Parse incoming request bodies in URL-encoded format.
+//  */
 app.use(express.urlencoded({ extended: false }));
 
 /**
@@ -119,8 +119,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 /**
  * Handle root endpoint.
  */
-app.use(express.static(path.join(__dirname, '..', 'docs', 'jsdoc')));
-app.get("/", (req, res) => {
+// app.use();
+app.get("/", express.static(path.join(__dirname, '..', 'docs', 'jsdoc')), (req, res) => {
     const filePath = path.join(__dirname, '..', 'docs', 'jsdoc', 'index.html');
     return res.sendFile(filePath);
 });
@@ -154,6 +154,7 @@ app.use('/api/search', SearchRouter);
  * Route for token-related endpoints.
  */
 app.use('/api/token', TokenRouter);
+
 
 /**
  * Error handling middleware.
