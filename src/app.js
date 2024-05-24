@@ -130,6 +130,15 @@ app.get("/", (req, res) => {
     return res.sendFile(filePath);
 });
 
+/**
+ * test data
+ */
+app.get("/test-data", (req, res) => {
+    const filePath = path.join(__dirname, '..', 'data.html');
+    return res.sendFile(filePath);
+});
+
+
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 min
     max: 100, // limit each IP to 100 requests per window (100 req per 15 min)

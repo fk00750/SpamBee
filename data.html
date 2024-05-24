@@ -3,69 +3,205 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tables</title>
+    <title>User Information Table</title>
     <style>
-      #usersTable {
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+      }
+      table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 20px;
+        margin: 20px 0;
+        font-size: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
-      #usersTable th,
-      #usersTable td {
-        padding: 12px;
-        border: 1px solid #ddd;
+      th,
+      td {
+        padding: 12px 15px;
         text-align: left;
+        border-bottom: 1px solid #ddd;
       }
-      #usersTable th {
-        background-color: #f2f2f2;
+      th {
+        background-color: #009879;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
       }
-      #usersTable tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
+      tr:nth-child(even) {
+        background-color: #f3f3f3;
       }
-      #usersTable tbody tr:hover {
-        background-color: #f2f2f2;
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      th,
+      td {
+        transition: background-color 0.3s ease;
+      }
+      tr:nth-child(even):hover {
+        background-color: #e1e1e1;
+      }
+      .container {
+        margin: 0 auto;
+        padding: 20px;
+        max-width: 900px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+      .contacts th {
+        background-color: #007bff;
+      }
+      .contacts-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      .contacts-table th,
+      .contacts-table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #ddd;
+      }
+      .contacts-table th {
+        background-color: #007bff;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .contacts-table tr:nth-child(even) {
+        background-color: #f3f3f3;
+      }
+      .contacts-table tr:hover {
+        background-color: #f1f1f1;
       }
     </style>
   </head>
   <body>
-    <main>
-      <h2>Users Table</h2>
-      <table id="usersTable">
+    <div class="container">
+      <h2>User Information</h2>
+      <table>
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
+            <th>Phone</th>
             <th>Password</th>
+            <th>Email</th>
           </tr>
         </thead>
-        <tbody id="usersData"></tbody>
+        <tbody>
+          <tr>
+            <td>Faiz</td>
+            <td>9616562288</td>
+            <td>Testpassword@123</td>
+            <td>fk7384329@gmail.com</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <table class="contacts-table">
+                <h4 style="text-align: center">Faiz Contact Information</h4>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Contact ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Raja Bhai Two</td>
+                    <td>8525416445</td>
+                    <td>18faa3963fb/c</td>
+                  </tr>
+                  <tr>
+                    <td>Mummy</td>
+                    <td>9654124010</td>
+                    <td>18faa39e46e/c</td>
+                  </tr>
+                  <tr>
+                    <td>Papa</td>
+                    <td>8205625314</td>
+                    <td>18faa3a1b35/c</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>Rohan</td>
+            <td>8545451010</td>
+            <td>Testpassword@123</td>
+            <td>rohannanda74@yahoo.com</td>
+          </tr>
+          <tr>
+            <td>Isha</td>
+            <td>9876543210</td>
+            <td>Password@123</td>
+            <td>isha.sharma@example.com</td>
+          </tr>
+          <tr>
+            <td>Arjun</td>
+            <td>7890123456</td>
+            <td>Securepass#456</td>
+            <td>arjun.singh@example.net</td>
+          </tr>
+          <tr>
+            <td>Priya</td>
+            <td>6789012345</td>
+            <td>Mypassword@789</td>
+            <td>priya.kapoor@example.org</td>
+          </tr>
+          <tr>
+            <td>Rahul</td>
+            <td>9012345678</td>
+            <td>Passw0rd#123</td>
+            <td>rahul.gupta@company.com</td>
+          </tr>
+          <tr>
+            <td>Neha</td>
+            <td>8765432109</td>
+            <td>Securepassword@456</td>
+            <td>neha.patel@company.co.in</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <table class="contacts-table">
+                <h4 style="text-align: center">Neha Contact Information</h4>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Contact ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>brother</td>
+                    <td>7505842130</td>
+                    <td>18faa495976/c</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>Aryan</td>
+            <td>7890123456</td>
+            <td>Strongpass#789</td>
+            <td>aryan.sharma@business.com</td>
+          </tr>
+          <tr>
+            <td>Pooja</td>
+            <td>6543210987</td>
+            <td>Mypassword@123</td>
+            <td>pooja.singh@company.net</td>
+          </tr>
+        </tbody>
       </table>
-    </main>
+    </div>
   </body>
-  <script>
-    fetch("users.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const tableBody = document.getElementById("usersData");
-
-        data.forEach((user) => {
-          const row = document.createElement("tr");
-
-          const nameCell = document.createElement("td");
-          nameCell.textContent = user.name;
-          row.appendChild(nameCell);
-
-          const emailCell = document.createElement("td");
-          emailCell.textContent = user.email;
-          row.appendChild(emailCell);
-
-          const passwordCell = document.createElement("td");
-          passwordCell.textContent = user.password;
-          row.appendChild(passwordCell);
-
-          tableBody.appendChild(row);
-        });
-      })
-      .catch((error) => console.error("Error fetching users data:", error));
-  </script>
 </html>
