@@ -51,6 +51,7 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
+            connectSrc: ["'self'", "https://authenticate-kx0v.onrender.com"]
         },
     },
     referrerPolicy: {
@@ -118,7 +119,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 /**
  * Handle root endpoint.
  */
-app.use(express.static(path.join(__dirname, '..', 'docs','jsdoc')));
+app.use(express.static(path.join(__dirname, '..', 'docs', 'jsdoc')));
 app.get("/", (req, res) => {
     const filePath = path.join(__dirname, '..', 'docs', 'jsdoc', 'index.html');
     return res.sendFile(filePath);
