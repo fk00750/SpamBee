@@ -5,6 +5,6 @@ const Router = express.Router()
 
 Router
     .post('/register', validatePhone, validatePassword, Register)
-    .post('/login', validatePhone, Login)
+    .post('/login', validatePhone, validatePassword, Login)
 
 module.exports = Router

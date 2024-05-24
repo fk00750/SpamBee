@@ -23,10 +23,9 @@ exports.Profile = async (req, res, next) => {
 
         // Respond with user's profile information: name, phone, and email.
         return res.status(200).json({
-            // name: user.name,
-            // phone: user.phone,
-            // email: user.email,
-            user
+            name: user.name,
+            phone: user.phone,
+            email: user.email,
         });
     } catch (error) {
         // Log the error and pass it to the error handler middleware.
