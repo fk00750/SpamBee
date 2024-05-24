@@ -1,0 +1,2777 @@
+openapi: 3.0.0
+info:
+  title: Authenticate Phone Number Information REST API
+  description: Welcome to the Phone Number Information REST API! This API allows you to register, log in, view and update your profile, search for phone numbers, find out if a number is marked as spam, and mark numbers as spam. The API is designed with enhanced security features to ensure the safety and privacy of user data.
+  contact:
+    name: Faiz Ali Khan
+    email: fk7384329@gmail.com
+  version: '1.0'
+servers:
+- url: https://authenticate-kx0v.onrender.com
+  variables: {}
+paths:
+  /:
+    get:
+      tags:
+      - Home
+      summary: home
+      operationId: home
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:05:53 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '62'
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 8883e302e937a828-DEL
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DYNAMIC
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gzip
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"26-QHKc/3G0TMHpF13AWmlpERFrmcE"
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=15552000; includeSubDomains
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Accept-Encoding
+            content-security-policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            cross-origin-embedder-policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: require-corp
+            cross-origin-opener-policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            cross-origin-resource-policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            origin-agent-cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            referrer-policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            rndr-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 07358fea-47d9-4142
+            x-content-type-options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            x-dns-prefetch-control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            x-download-options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            x-frame-options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: SAMEORIGIN
+            x-permitted-cross-domain-policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '100'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '94'
+            x-ratelimit-reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '1716455862'
+            x-render-origin-server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Render
+            x-xss-protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: cloudflare
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: h3=":443"; ma=86400
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/home'
+                - example:
+                    message: Welcome !!!
+              example:
+                message: Welcome !!!
+      deprecated: false
+      servers:
+      - url: https://authenticate-kx0v.onrender.com
+        variables: {}
+  /api/auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: mangoman
+                  phone: '7414415420'
+                  password: Qazplmvb56@
+                  email: mango852@gmail.com
+            example:
+              name: mangoman
+              phone: '7414415420'
+              password: Qazplmvb56@
+              email: mango852@gmail.com
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:16:48 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/register'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      servers:
+      - url: https://authenticate-kx0v.onrender.com
+        variables: {}
+  /api/auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  phone: '84848758475'
+                  password: WAZokmvb56@852
+            example:
+              phone: '84848758475'
+              password: WAZokmvb56@852
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '1676'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"68c-bbWvFAqCHL82WUA57n7xhpy2LsQ"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:27:32 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/login'
+                - example:
+                    success: true
+                    accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.WmEM4-1kaI50Xh2IMLQ8jvE_KtimZqTcRfaeJK-G7yinYyjOsJMUS9PTY8XpCWfLTKoDA6UcsPczOkfR31k_Qmj8-UzXRikynA6yzyv6P76AhsX1AaJRVMQOM0M_Np24FfGmNQ0VxQoXBBaesn2ZUN6eEAIDE3Wh2wFyXKKr3Ggk2OPho2A6vEGzYkS6SgNgpKY_huXu8GXLkgKl0HRIc1StYzu1bQr5FR_kJ3AyK4mjNJJ3IcTfHFcLD0hEZBFWoodAK2DB2aHVdDJ53tVLbntgY9kk5DNdHPXTeo1mJfUjpuMfAQSdy4b1x1Kk28RSoLahLbSzt2gG7WBuclG8mrZVOIbFrbtL-9SQqSH2xmuX4gRLivdv9ZuoZLZrGv-fgBuDIo5wl8MiCh7BusTJ3Zplp7luCqFjg5CRQYFrr5sGngNxowzcuyY006IbIgFm4k6fe3n5JQLVux-ucg1m65zx7vNtZljgYwbLBxXd_fs1_C_Wuz3nMFlqdzSKhUKiW0KQfRGd-AiNrJNEHaa-LXgZxaW8VoI4dNU7tW2JroTrs95xwMVgthIkG-SEsLkpieBmF1czA8-sz-wzZoNr-T5lH6CdqKcstvfF-FrIHaQsWbztdyf7aoV1sf94B4P5qBFUlskYuwXI1FptQVGOZcpd9TiDU2axWZlAr73vCds'
+                    refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.H4kUT8r3vmRmP-gWeRhm6EJU76isqz3QcpmXq6xES7ecSZotUU9SYHeaTaaRGBWXHBkns6a8B4DnES3GRhanIUeTYJTtYKPBRtkSSRTKdWiHmKwuRhsSM3GeAt0XzLA8m8BpUIvOWNRbCMkf4APFxY0EECmfc8_e6lE0kVXkv135AcOOFUp--PVP_qqSWOEWYgtEt3BhaBof8xIZ1IPl9o-f2NorbG--ClgIVAt5mg6ehlOnPMiJ-cdSjJuL3pNIFQ3V8uJCx25h0cTdZTmkBCS6OISy2-tnX4q4IeheE8XnWyzhm3qRM41MlWEk3l22jX2V-WZyJa2gkb6MuZeN-Lps-NCKGqS7BK9qVPOZev-Nn05c0Hd6Bz-G_F3Vz0s_Ja-39_0EqsRveOwy1IVWZC8k3_TXhcNXWWi0YVTV9SsuZNRCjvYl-9Kmek6s0HwV8VbhHCLl8GJbv6YfUzNRAV4fiM-lBMn1ry5wIhh_AT-NxEDw9j9MxA4GfE2pyiV1VqvnkoufF_FwJ5ZQaPvpKo3KFObUpc6bZADgQNnDG8Vyw4RqhASdz839qXMnRW3dWRxhsVMU4S3HQo1ka8MNA8rbsUsJAOoPT13Bf4h4XrcJhrFOrvzmGYMpDaajUqiwRXeEzyDXnM-ybgyY8MSjxfLTPrwjuN8VDybG6XFytYM
+                    message: Login Successfully
+              example:
+                success: true
+                accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.WmEM4-1kaI50Xh2IMLQ8jvE_KtimZqTcRfaeJK-G7yinYyjOsJMUS9PTY8XpCWfLTKoDA6UcsPczOkfR31k_Qmj8-UzXRikynA6yzyv6P76AhsX1AaJRVMQOM0M_Np24FfGmNQ0VxQoXBBaesn2ZUN6eEAIDE3Wh2wFyXKKr3Ggk2OPho2A6vEGzYkS6SgNgpKY_huXu8GXLkgKl0HRIc1StYzu1bQr5FR_kJ3AyK4mjNJJ3IcTfHFcLD0hEZBFWoodAK2DB2aHVdDJ53tVLbntgY9kk5DNdHPXTeo1mJfUjpuMfAQSdy4b1x1Kk28RSoLahLbSzt2gG7WBuclG8mrZVOIbFrbtL-9SQqSH2xmuX4gRLivdv9ZuoZLZrGv-fgBuDIo5wl8MiCh7BusTJ3Zplp7luCqFjg5CRQYFrr5sGngNxowzcuyY006IbIgFm4k6fe3n5JQLVux-ucg1m65zx7vNtZljgYwbLBxXd_fs1_C_Wuz3nMFlqdzSKhUKiW0KQfRGd-AiNrJNEHaa-LXgZxaW8VoI4dNU7tW2JroTrs95xwMVgthIkG-SEsLkpieBmF1czA8-sz-wzZoNr-T5lH6CdqKcstvfF-FrIHaQsWbztdyf7aoV1sf94B4P5qBFUlskYuwXI1FptQVGOZcpd9TiDU2axWZlAr73vCds'
+                refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.H4kUT8r3vmRmP-gWeRhm6EJU76isqz3QcpmXq6xES7ecSZotUU9SYHeaTaaRGBWXHBkns6a8B4DnES3GRhanIUeTYJTtYKPBRtkSSRTKdWiHmKwuRhsSM3GeAt0XzLA8m8BpUIvOWNRbCMkf4APFxY0EECmfc8_e6lE0kVXkv135AcOOFUp--PVP_qqSWOEWYgtEt3BhaBof8xIZ1IPl9o-f2NorbG--ClgIVAt5mg6ehlOnPMiJ-cdSjJuL3pNIFQ3V8uJCx25h0cTdZTmkBCS6OISy2-tnX4q4IeheE8XnWyzhm3qRM41MlWEk3l22jX2V-WZyJa2gkb6MuZeN-Lps-NCKGqS7BK9qVPOZev-Nn05c0Hd6Bz-G_F3Vz0s_Ja-39_0EqsRveOwy1IVWZC8k3_TXhcNXWWi0YVTV9SsuZNRCjvYl-9Kmek6s0HwV8VbhHCLl8GJbv6YfUzNRAV4fiM-lBMn1ry5wIhh_AT-NxEDw9j9MxA4GfE2pyiV1VqvnkoufF_FwJ5ZQaPvpKo3KFObUpc6bZADgQNnDG8Vyw4RqhASdz839qXMnRW3dWRxhsVMU4S3HQo1ka8MNA8rbsUsJAOoPT13Bf4h4XrcJhrFOrvzmGYMpDaajUqiwRXeEzyDXnM-ybgyY8MSjxfLTPrwjuN8VDybG6XFytYM
+                message: Login Successfully
+      deprecated: false
+  /api/profile/get-profile:
+    get:
+      tags:
+      - Profile
+      summary: profile
+      operationId: profile
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '69'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"45-eKE3KLaR55ucs1FwHcBDcr9RXOM"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:28:58 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/profile'
+                - example:
+                    name: mangoman
+                    phone: '7414415420'
+                    email: mango852@gmail.com
+              example:
+                name: mangoman
+                phone: '7414415420'
+                email: mango852@gmail.com
+      deprecated: false
+      security:
+      - bearer: []
+  /api/profile/update-name:
+    patch:
+      tags:
+      - Profile
+      summary: update-name
+      operationId: update-name
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/update-name-request'
+              - example:
+                  name: aam admi
+            example:
+              name: aam admi
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:31:01 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/update-name'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/profile/update-email:
+    patch:
+      tags:
+      - Profile
+      summary: update-email
+      operationId: update-email
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/update-email-request'
+              - example:
+                  email: arvind74@gmail.com
+            example:
+              email: arvind74@gmail.com
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:33:29 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/update-email'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/profile/update-phone:
+    patch:
+      tags:
+      - Profile
+      summary: update-phone
+      operationId: update-phone
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/update-phone-request'
+              - example:
+                  phone: '84848758475'
+            example:
+              phone: '84848758475'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:37:46 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/update-phone'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/profile/update-password:
+    patch:
+      tags:
+      - Profile
+      summary: update-password
+      operationId: update-password
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/update-password-request'
+              - example:
+                  currentPassword: Qazplmvb56@
+                  password: WAZokmvb56@852
+            example:
+              currentPassword: Qazplmvb56@
+              password: WAZokmvb56@852
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:46:45 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/update-password'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/contact/add-contact:
+    post:
+      tags:
+      - Contact
+      summary: add-contact
+      operationId: add-contact
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/add-contact-request'
+              - example:
+                  name: raja bhai
+                  phone: '8525416445'
+            example:
+              name: raja bhai
+              phone: '8525416445'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:48:51 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/add-contact'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/contact/get-contacts:
+    get:
+      tags:
+      - Contact
+      summary: get-contacts
+      operationId: get-contacts
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '164'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"a4-ss3j4AjKJgz2mFm9XU19sA3NuWQ"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 09:54:33 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/get-contacts'
+                - example:
+                    Contacts:
+                    - name: kirana store uncle
+                      phone: '8585968574'
+                      contactId: 18fa4da73fd/c
+                    - name: faraz bhai
+                      phone: '9663632145'
+                      contactId: 18fa4dd853e/c
+              example:
+                Contacts:
+                - name: kirana store uncle
+                  phone: '8585968574'
+                  contactId: 18fa4da73fd/c
+                - name: faraz bhai
+                  phone: '9663632145'
+                  contactId: 18fa4dd853e/c
+      deprecated: false
+      security:
+      - bearer: []
+  /api/contact/get-contact/{contactId}:
+    get:
+      tags:
+      - Contact
+      summary: get-contact
+      operationId: get-contact
+      parameters:
+      - name: contactId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '110'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"6e-kRhWDnPDzKlRKy8kw/IfKFPsdzE"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 11:03:19 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/get-contact'
+                - example:
+                    Contact:
+                      name: faraz bhai
+                      phone: '9663632145'
+                      email: faraz85@gmail.com
+                      contactId: 18fa51d5146/c
+              example:
+                Contact:
+                  name: faraz bhai
+                  phone: '9663632145'
+                  email: faraz85@gmail.com
+                  contactId: 18fa51d5146/c
+      deprecated: false
+      security:
+      - bearer: []
+  /api/contact/delete-contact/{contactId}:
+    delete:
+      tags:
+      - Contact
+      summary: delete-contact
+      operationId: delete-contact
+      parameters:
+      - name: contactId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '33'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"21-rjnar7irXpubsvxXqOFjLy/cjFE"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 10:29:54 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/URLcontactdelete-contact18fa4dd853e2Fc'
+                - example:
+                    Contact: 1
+                    message: success
+              example:
+                Contact: 1
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /contact/update-contact/{contactId}:
+    patch:
+      tags:
+      - Contact
+      summary: update-contact
+      operationId: update-contact
+      parameters:
+      - name: contactId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/update-contact-request'
+          - example:
+              name: raja pagal
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '33'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"21-rjnar7irXpubsvxXqOFjLy/cjFE"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 11:06:27 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/update-contact'
+                - example:
+                    Contact: 1
+                    message: success
+              example:
+                Contact: 1
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /api/spam/mark-spam:
+    post:
+      tags:
+      - Spam
+      summary: mark-spam
+      operationId: mark-spam
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/mark-spam-request'
+              - example:
+                  phone: '8525416445'
+            example:
+              phone: '8525416445'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '34'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"22-1tXUXqbxVJHL4XPzq9u/xGk2nVk"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 11:07:40 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/mark-spam'
+                - example:
+                    status: 200
+                    message: success
+              example:
+                status: 200
+                message: success
+      deprecated: false
+      security:
+      - bearer: []
+  /search/search-user:
+    get:
+      tags:
+      - Search
+      summary: search-user
+      operationId: search-user
+      parameters:
+      - name: name
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: kirana
+      - name: phone
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '149'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"95-muz9yy2FN6SVpN1Dl8urLhMhLFo"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 11:10:16 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  success: true
+                  users:
+                  - name: lala kirana
+                    phone: '7412589630'
+                    spamCount: 0
+                  - name: kirana store uncle
+                    phone: '8585968574'
+                    spamCount: 0
+              example:
+                success: true
+                users:
+                - name: lala kirana
+                  phone: '7412589630'
+                  spamCount: 0
+                - name: kirana store uncle
+                  phone: '8585968574'
+                  spamCount: 0
+      deprecated: false
+      security:
+      - bearer: []
+  /api/token/refresh:
+    post:
+      tags:
+      - Token
+      summary: refresh-token
+      operationId: refresh-token
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Security-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            Cross-Origin-Opener-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Cross-Origin-Resource-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: same-origin
+            Origin-Agent-Cluster:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: ?1
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: no-referrer
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=21945600
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: none
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '0'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '1665'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"681-60WqkWfd8vGtWGeg17IyFYdF+/I"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 23 May 2024 11:13:40 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/refresh-token'
+                - example:
+                    success: true
+                    message: success
+                    accessToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.NFXcL1jwhuGgCzOUtF8tOurx8WQhfqOLsXdYL1UEjOxUgspTUFiSAdFBmG-M5b6mzb3nmzh0bCLrx59l4B80UGkewgXN-Y0-xh5nB2W7qoj1-HMsnR7IRbv4amDMKCZ6kKi2PmfK8_g_T4cLz0ZtbOAmRPyteMoacqO7_vzQI4TixuRnWMl_vcZhKCLyWDY1yd49dAjObP1hafHry-y1bjFt5gKJ7K-_jJtsQYLQvsixfGx_L-lSpeez9Z7ksZ3jhHKs9CvlzQW6MaYkWQhgr7-birz69zNVGFCcRIdE_rGd0NeQoN98IohrXk78pLYTvXhCePED3H8VWnR-fgHlppOeUNCKcPQMeeR5zJBNSbq_LE-4MI2OLt6yg61iyvjO-M-VC6_RiVhiJqLU0gspQvpKQwBlHVX9GsSxd6yOGbTGssl7oNScmpLA961ts3DE5ZV_E98aEeruNvlCKHFJujPZWPXo-9sYty9S5P3JEya84Fjlz6uyhQvpjnfE9OgET0_t6OTn2JIy4HhdPuwcYIv3F2-58pJ7vYeK7epyhl-J-h8CYqMWyI2yFxwAe-IndOBXoBVC7Y7N4TanUcDXs7Klki07DHkqlgrEAG3e2hyYwrKfNGbORHmX0__SBtUaK2a60XWRfBWrZXtRTOtkMXT0pf5XPDMCNmJcrGWpYwI
+                    refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.in4QISURBYE3NFX33kv--yfRF8Y_12rv7mIRCc9huD4rJIOgtYSmlLMcjbijqDBVYZicxA8f6h5sUu4x2j2jcwKDXLU3Bp0B3z-bIgkmZnl7OuifWux9qd-H64gkv4Z2xGeMboGvMkvOx_pnDabrdY6LNwUYyaLkKcMF3UcSxe3MW7xT5F_u_cpeeXKPKerUXybOcSoDEtEJvjX6WJ6uC0yaO8wcwGQnx1Xxrh2wdPKPIp_L9GStJNyuuABsz6JOw4YuRV65E1MZfqDmc67Kckz33a3YldtYhkxlTEV7hknyJKiYbNoPw66oH8N5YQzxUURIc0v-SqN3SDigkfztJqXur2F2JfmkJXzC0-q_SEA_q2AFf3P-SbzNC4GVnk8wZCV3tqatDH-0Iv6UZur5tVi4UXGVw31TPT5yfjNbV623sQe456AN59c8xbShepW7r0CHJ57sOkQir57zefepdqx8ia9VaigrZAxJfKRu6t0Wogm976u02K05nkVGwMWewUi4B75FPas7xBTAKyjc8FfQF3RSelS0HhUswuSuoV6h6m5tV5-Gqmiucouq6EY9xqeiknL-2kb-UniJQT67vGnIKmeTNduVcW0ATcs2ZhpkK5kyOwVk8GWWR_jIeGHKh-MFeiJ1x8RPpl64ZTUBmx6NqdsjHRHE8QOgCz7neOw
+              example:
+                success: true
+                message: success
+                accessToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.NFXcL1jwhuGgCzOUtF8tOurx8WQhfqOLsXdYL1UEjOxUgspTUFiSAdFBmG-M5b6mzb3nmzh0bCLrx59l4B80UGkewgXN-Y0-xh5nB2W7qoj1-HMsnR7IRbv4amDMKCZ6kKi2PmfK8_g_T4cLz0ZtbOAmRPyteMoacqO7_vzQI4TixuRnWMl_vcZhKCLyWDY1yd49dAjObP1hafHry-y1bjFt5gKJ7K-_jJtsQYLQvsixfGx_L-lSpeez9Z7ksZ3jhHKs9CvlzQW6MaYkWQhgr7-birz69zNVGFCcRIdE_rGd0NeQoN98IohrXk78pLYTvXhCePED3H8VWnR-fgHlppOeUNCKcPQMeeR5zJBNSbq_LE-4MI2OLt6yg61iyvjO-M-VC6_RiVhiJqLU0gspQvpKQwBlHVX9GsSxd6yOGbTGssl7oNScmpLA961ts3DE5ZV_E98aEeruNvlCKHFJujPZWPXo-9sYty9S5P3JEya84Fjlz6uyhQvpjnfE9OgET0_t6OTn2JIy4HhdPuwcYIv3F2-58pJ7vYeK7epyhl-J-h8CYqMWyI2yFxwAe-IndOBXoBVC7Y7N4TanUcDXs7Klki07DHkqlgrEAG3e2hyYwrKfNGbORHmX0__SBtUaK2a60XWRfBWrZXtRTOtkMXT0pf5XPDMCNmJcrGWpYwI
+                refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.in4QISURBYE3NFX33kv--yfRF8Y_12rv7mIRCc9huD4rJIOgtYSmlLMcjbijqDBVYZicxA8f6h5sUu4x2j2jcwKDXLU3Bp0B3z-bIgkmZnl7OuifWux9qd-H64gkv4Z2xGeMboGvMkvOx_pnDabrdY6LNwUYyaLkKcMF3UcSxe3MW7xT5F_u_cpeeXKPKerUXybOcSoDEtEJvjX6WJ6uC0yaO8wcwGQnx1Xxrh2wdPKPIp_L9GStJNyuuABsz6JOw4YuRV65E1MZfqDmc67Kckz33a3YldtYhkxlTEV7hknyJKiYbNoPw66oH8N5YQzxUURIc0v-SqN3SDigkfztJqXur2F2JfmkJXzC0-q_SEA_q2AFf3P-SbzNC4GVnk8wZCV3tqatDH-0Iv6UZur5tVi4UXGVw31TPT5yfjNbV623sQe456AN59c8xbShepW7r0CHJ57sOkQir57zefepdqx8ia9VaigrZAxJfKRu6t0Wogm976u02K05nkVGwMWewUi4B75FPas7xBTAKyjc8FfQF3RSelS0HhUswuSuoV6h6m5tV5-Gqmiucouq6EY9xqeiknL-2kb-UniJQT67vGnIKmeTNduVcW0ATcs2ZhpkK5kyOwVk8GWWR_jIeGHKh-MFeiJ1x8RPpl64ZTUBmx6NqdsjHRHE8QOgCz7neOw
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    home:
+      title: home
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Welcome to AuthGuard API
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - phone
+      - password
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        name: mangoman
+        phone: '7414415420'
+        password: Qazplmvb56@
+        email: mango852@gmail.com
+    register:
+      title: register
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    register2:
+      title: register2
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    loginrequest:
+      title: loginrequest
+      required:
+      - phone
+      - password
+      type: object
+      properties:
+        phone:
+          type: string
+        password:
+          type: string
+      example:
+        phone: '84848758475'
+        password: WAZokmvb56@852
+    login:
+      title: login
+      required:
+      - success
+      - accessToken
+      - refreshToken
+      - message
+      type: object
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        message:
+          type: string
+      example:
+        success: true
+        accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.WmEM4-1kaI50Xh2IMLQ8jvE_KtimZqTcRfaeJK-G7yinYyjOsJMUS9PTY8XpCWfLTKoDA6UcsPczOkfR31k_Qmj8-UzXRikynA6yzyv6P76AhsX1AaJRVMQOM0M_Np24FfGmNQ0VxQoXBBaesn2ZUN6eEAIDE3Wh2wFyXKKr3Ggk2OPho2A6vEGzYkS6SgNgpKY_huXu8GXLkgKl0HRIc1StYzu1bQr5FR_kJ3AyK4mjNJJ3IcTfHFcLD0hEZBFWoodAK2DB2aHVdDJ53tVLbntgY9kk5DNdHPXTeo1mJfUjpuMfAQSdy4b1x1Kk28RSoLahLbSzt2gG7WBuclG8mrZVOIbFrbtL-9SQqSH2xmuX4gRLivdv9ZuoZLZrGv-fgBuDIo5wl8MiCh7BusTJ3Zplp7luCqFjg5CRQYFrr5sGngNxowzcuyY006IbIgFm4k6fe3n5JQLVux-ucg1m65zx7vNtZljgYwbLBxXd_fs1_C_Wuz3nMFlqdzSKhUKiW0KQfRGd-AiNrJNEHaa-LXgZxaW8VoI4dNU7tW2JroTrs95xwMVgthIkG-SEsLkpieBmF1czA8-sz-wzZoNr-T5lH6CdqKcstvfF-FrIHaQsWbztdyf7aoV1sf94B4P5qBFUlskYuwXI1FptQVGOZcpd9TiDU2axWZlAr73vCds'
+        refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDU2NDUyLCJleHAiOjE3NDgwMTQwNTJ9.H4kUT8r3vmRmP-gWeRhm6EJU76isqz3QcpmXq6xES7ecSZotUU9SYHeaTaaRGBWXHBkns6a8B4DnES3GRhanIUeTYJTtYKPBRtkSSRTKdWiHmKwuRhsSM3GeAt0XzLA8m8BpUIvOWNRbCMkf4APFxY0EECmfc8_e6lE0kVXkv135AcOOFUp--PVP_qqSWOEWYgtEt3BhaBof8xIZ1IPl9o-f2NorbG--ClgIVAt5mg6ehlOnPMiJ-cdSjJuL3pNIFQ3V8uJCx25h0cTdZTmkBCS6OISy2-tnX4q4IeheE8XnWyzhm3qRM41MlWEk3l22jX2V-WZyJa2gkb6MuZeN-Lps-NCKGqS7BK9qVPOZev-Nn05c0Hd6Bz-G_F3Vz0s_Ja-39_0EqsRveOwy1IVWZC8k3_TXhcNXWWi0YVTV9SsuZNRCjvYl-9Kmek6s0HwV8VbhHCLl8GJbv6YfUzNRAV4fiM-lBMn1ry5wIhh_AT-NxEDw9j9MxA4GfE2pyiV1VqvnkoufF_FwJ5ZQaPvpKo3KFObUpc6bZADgQNnDG8Vyw4RqhASdz839qXMnRW3dWRxhsVMU4S3HQo1ka8MNA8rbsUsJAOoPT13Bf4h4XrcJhrFOrvzmGYMpDaajUqiwRXeEzyDXnM-ybgyY8MSjxfLTPrwjuN8VDybG6XFytYM
+        message: Login Successfully
+    profile:
+      title: profile
+      required:
+      - name
+      - phone
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+      example:
+        name: mangoman
+        phone: '7414415420'
+        email: mango852@gmail.com
+    update-name-request:
+      title: update-name-request
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: aam admi
+    update-name:
+      title: update-name
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    update-email-request:
+      title: update-email-request
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: arvind74@gmail.com
+    update-email:
+      title: update-email
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    update-phone-request:
+      title: update-phone-request
+      required:
+      - phone
+      type: object
+      properties:
+        phone:
+          type: string
+      example:
+        phone: '84848758475'
+    update-phone:
+      title: update-phone
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    update-password-request:
+      title: update-password-request
+      required:
+      - currentPassword
+      - password
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        password:
+          type: string
+      example:
+        currentPassword: Qazplmvb56@
+        password: WAZokmvb56@852
+    update-password:
+      title: update-password
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    add-contact-request:
+      title: add-contact-request
+      required:
+      - name
+      - phone
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+      example:
+        name: raja bhai
+        phone: '8525416445'
+    add-contact:
+      title: add-contact
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    get-contacts:
+      title: get-contacts
+      required:
+      - Contacts
+      type: object
+      properties:
+        Contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+          description: ''
+      example:
+        Contacts:
+        - name: kirana store uncle
+          phone: '8585968574'
+          contactId: 18fa4da73fd/c
+        - name: faraz bhai
+          phone: '9663632145'
+          contactId: 18fa4dd853e/c
+    Contact:
+      title: Contact
+      required:
+      - name
+      - phone
+      - contactId
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        contactId:
+          type: string
+      example:
+        name: kirana store uncle
+        phone: '8585968574'
+        contactId: 18fa4da73fd/c
+    get-contact:
+      title: get-contact
+      required:
+      - Contact
+      type: object
+      properties:
+        Contact:
+          allOf:
+          - $ref: '#/components/schemas/Contact1'
+          - {}
+      example:
+        Contact:
+          name: faraz bhai
+          phone: '9663632145'
+          email: faraz85@gmail.com
+          contactId: 18fa51d5146/c
+    Contact1:
+      title: Contact1
+      required:
+      - name
+      - phone
+      - email
+      - contactId
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        contactId:
+          type: string
+      example:
+        name: faraz bhai
+        phone: '9663632145'
+        email: faraz85@gmail.com
+        contactId: 18fa51d5146/c
+    URLcontactdelete-contact18fa4dd853e2Fc:
+      title: URLcontactdelete-contact18fa4dd853e2Fc
+      required:
+      - Contact
+      - message
+      type: object
+      properties:
+        Contact:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        Contact: 1
+        message: success
+    update-contact-request:
+      title: update-contact-request
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: raja pagal
+    update-contact:
+      title: update-contact
+      required:
+      - Contact
+      - message
+      type: object
+      properties:
+        Contact:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        Contact: 1
+        message: success
+    mark-spam-request:
+      title: mark-spam-request
+      required:
+      - phone
+      type: object
+      properties:
+        phone:
+          type: string
+      example:
+        phone: '8525416445'
+    mark-spam:
+      title: mark-spam
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        status: 200
+        message: success
+    search-user:
+      title: search-user
+      required:
+      - success
+      - users
+      type: object
+      properties:
+        success:
+          type: boolean
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          description: ''
+      example:
+        success: true
+        users:
+        - name: lala kirana
+          phone: '7412589630'
+          spamCount: 0
+        - name: kirana store uncle
+          phone: '8585968574'
+          spamCount: 0
+    User:
+      title: User
+      required:
+      - name
+      - phone
+      - spamCount
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        spamCount:
+          type: integer
+          format: int32
+      example:
+        name: lala kirana
+        phone: '7412589630'
+        spamCount: 0
+    refresh-token:
+      title: refresh-token
+      required:
+      - success
+      - message
+      - accessToken
+      - refreshToken
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+      example:
+        success: true
+        message: success
+        accessToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.NFXcL1jwhuGgCzOUtF8tOurx8WQhfqOLsXdYL1UEjOxUgspTUFiSAdFBmG-M5b6mzb3nmzh0bCLrx59l4B80UGkewgXN-Y0-xh5nB2W7qoj1-HMsnR7IRbv4amDMKCZ6kKi2PmfK8_g_T4cLz0ZtbOAmRPyteMoacqO7_vzQI4TixuRnWMl_vcZhKCLyWDY1yd49dAjObP1hafHry-y1bjFt5gKJ7K-_jJtsQYLQvsixfGx_L-lSpeez9Z7ksZ3jhHKs9CvlzQW6MaYkWQhgr7-birz69zNVGFCcRIdE_rGd0NeQoN98IohrXk78pLYTvXhCePED3H8VWnR-fgHlppOeUNCKcPQMeeR5zJBNSbq_LE-4MI2OLt6yg61iyvjO-M-VC6_RiVhiJqLU0gspQvpKQwBlHVX9GsSxd6yOGbTGssl7oNScmpLA961ts3DE5ZV_E98aEeruNvlCKHFJujPZWPXo-9sYty9S5P3JEya84Fjlz6uyhQvpjnfE9OgET0_t6OTn2JIy4HhdPuwcYIv3F2-58pJ7vYeK7epyhl-J-h8CYqMWyI2yFxwAe-IndOBXoBVC7Y7N4TanUcDXs7Klki07DHkqlgrEAG3e2hyYwrKfNGbORHmX0__SBtUaK2a60XWRfBWrZXtRTOtkMXT0pf5XPDMCNmJcrGWpYwI
+        refreshToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOGZhNGMwMTIxZi91IiwiaWF0IjoxNzE2NDYyODIwLCJleHAiOjE3NDgwMjA0MjB9.in4QISURBYE3NFX33kv--yfRF8Y_12rv7mIRCc9huD4rJIOgtYSmlLMcjbijqDBVYZicxA8f6h5sUu4x2j2jcwKDXLU3Bp0B3z-bIgkmZnl7OuifWux9qd-H64gkv4Z2xGeMboGvMkvOx_pnDabrdY6LNwUYyaLkKcMF3UcSxe3MW7xT5F_u_cpeeXKPKerUXybOcSoDEtEJvjX6WJ6uC0yaO8wcwGQnx1Xxrh2wdPKPIp_L9GStJNyuuABsz6JOw4YuRV65E1MZfqDmc67Kckz33a3YldtYhkxlTEV7hknyJKiYbNoPw66oH8N5YQzxUURIc0v-SqN3SDigkfztJqXur2F2JfmkJXzC0-q_SEA_q2AFf3P-SbzNC4GVnk8wZCV3tqatDH-0Iv6UZur5tVi4UXGVw31TPT5yfjNbV623sQe456AN59c8xbShepW7r0CHJ57sOkQir57zefepdqx8ia9VaigrZAxJfKRu6t0Wogm976u02K05nkVGwMWewUi4B75FPas7xBTAKyjc8FfQF3RSelS0HhUswuSuoV6h6m5tV5-Gqmiucouq6EY9xqeiknL-2kb-UniJQT67vGnIKmeTNduVcW0ATcs2ZhpkK5kyOwVk8GWWR_jIeGHKh-MFeiJ1x8RPpl64ZTUBmx6NqdsjHRHE8QOgCz7neOw
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Misc
+  description: ''
+- name: Home
+  description: ''
+- name: Auth
+  description: ''
+- name: Profile
+  description: ''
+- name: Contact
+  description: ''
+- name: Spam
+  description: ''
+- name: Search
+  description: ''
+- name: Token
+  description: ''
