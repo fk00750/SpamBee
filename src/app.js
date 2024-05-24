@@ -87,7 +87,7 @@ app.use(
 
 
 // xss
-app.use(xss())
+app.use(xss)
 // cookie parser
 app.use(cookieParser())
 
