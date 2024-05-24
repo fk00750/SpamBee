@@ -40,6 +40,9 @@ const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocumentation = YAML.load('./swagger.yaml')
 const path = require('path')
+const xss = require('xss')
+const rateLimit = require("express-rate-limit");
+const cookieParser = require(cookieParser)
 
 const app = express();
 
@@ -49,7 +52,7 @@ const app = express();
 const allowedOrigins = ["https://authenticate-kx0v.onrender.com"];
 const corsOptions = {
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (allowedOrigins.includes(origin)) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
@@ -81,6 +84,12 @@ app.use(
         noSniff: true,
     })
 );
+
+
+// xss
+app.use(xss())
+// cookie parser
+app.use(cookieParser())
 
 /**
  * Log HTTP requests to the console.
@@ -125,35 +134,41 @@ app.get("/", (req, res) => {
     return res.sendFile(filePath);
 });
 
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 min
+    max: 100, // limit each IP to 100 requests per window (100 req per 15 min)
+    message: "Too many requests, please try again later.",
+});
+
 /**
  * Route for authentication-related endpoints.
  */
-app.use('/api/auth', AuthRouter);
+app.use('/api/auth', authLimiter, AuthRouter);
 
 /**
  * Route for profile-related endpoints.
  */
-app.use('/api/profile', ProfileRouter);
+app.use('/api/profile', authLimiter, ProfileRouter);
 
 /**
  * Route for contact-related endpoints.
  */
-app.use('/api/contact', ContactRouter);
+app.use('/api/contact', authLimiter, ContactRouter);
 
 /**
  * Route for spam-related endpoints.
  */
-app.use('/api/spam', SpamRouter);
+app.use('/api/spam', authLimiter, SpamRouter);
 
 /**
  * Route for search-related endpoints.
  */
-app.use('/api/search', SearchRouter);
+app.use('/api/search', authLimiter, SearchRouter);
 
 /**
  * Route for token-related endpoints.
  */
-app.use('/api/token', TokenRouter);
+app.use('/api/token', authLimiter, TokenRouter);
 
 
 /**
