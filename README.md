@@ -1,7 +1,3 @@
-Sure! Here's the updated README.md file with a section for future enhancements:
-
----
-
 # SpamBee REST API
 
 Welcome to **SpamBee API**, a robust REST API designed to empower mobile applications with spam detection and phone number lookup functionalities. Similar to popular apps in the market, SpamBee API allows users to determine if a phone number is associated with spam and to search for a person's name by entering their phone number.
