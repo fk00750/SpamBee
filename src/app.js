@@ -47,25 +47,25 @@ const app = express();
  * Apply various security-related HTTP headers to the responses.
  * @see {@link https://www.npmjs.com/package/helmet} for more information about helmet middleware.
  */
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            connectSrc: ["'self'", "https://authenticate-kx0v.onrender.com"]
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                connectSrc: ["'self'", "https://authenticate-kx0v.onrender.com"],
+            },
         },
-    },
-    referrerPolicy: {
-        policy: "no-referrer"
-    },
-    hsts: {
-        maxAge: 21945600, // 254 days
-        includeSubDomains: false
-    },
-    frameguard: {
-        action: "deny",
-    },
-    noSniff: true,
-}));
+        referrerPolicy: { policy: "origin" }, // Changed from 'no-referrer'
+        hsts: {
+            maxAge: 21945600, // 254 days
+            includeSubDomains: false,
+        },
+        frameguard: {
+            action: "deny",
+        },
+        noSniff: true,
+    })
+);
 
 /**
  * Define allowed origins for CORS (Cross-Origin Resource Sharing) policy.
